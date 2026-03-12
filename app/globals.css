@@ -55,7 +55,7 @@
 
 @layer utilities {
   .text-balance {
-    text-wrap: balance;
+    /* text-wrap removed for compatibility */
   }
 
   .gradient-navy {
@@ -91,3 +91,10 @@
 }
 
 /* Google Fonts - loaded via Next.js font optimization */
+
+@layer utilities {
+  .radial-bg {
+    background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+}

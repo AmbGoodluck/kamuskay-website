@@ -1,6 +1,75 @@
 import type { Metadata } from "next";
 import AnimateIn from "@/components/ui/AnimateIn";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { HiUserGroup, HiGlobe, HiHeart, HiStar, HiFire, HiShieldCheck } from "react-icons/hi";
+
+// --- Carousel Images Array (move outside component) ---
+const galleryImages = [
+  "african-cultural-attire.jpeg",
+  "ala-jumping.jpeg",
+  "arts-instrument.jpeg",
+  "asa-group.jpeg",
+  "athletics-block-party.jpeg",
+  "berea-campus-fist.jpeg",
+  "berea-college-portrait.jpeg",
+  "berea-news-reporter.jpeg",
+  "berea-patrons-giving.jpeg",
+  "berea-portrait-smiling.jpeg",
+  "community-service.jpeg",
+  "conference-with-peers.jpeg",
+  "de007e40-6dfa-4f97-9c4f-f648d4111797.jpg",
+  "finish-line.jpeg",
+  "firefighter-christmas.jpeg",
+  "firefighter-orange-suit.jpeg",
+  "firefighter-portrait.jpeg",
+  "graham-award.jpeg",
+  "international-students.jpeg",
+  "leadership-portrait-suit.jpeg",
+  "lifeguard.jpeg",
+  "media-production-airport.jpeg",
+  "mlk-award-certificate.jpeg",
+  "mlk-tribute-event.jpeg",
+  "sga-nominees.jpeg",
+  "sierra-leone-flag-track.jpeg",
+  "speaking-podium.jpeg",
+  "student-philanthropy-table.jpeg",
+  "track-running-action.jpeg",
+  "track-team.jpeg",
+  "track-teammates.jpeg",
+  // ...add all other image filenames from public/images
+];
+
+// --- Carousel Component ---
+function GalleryCarousel() {
+  const carouselRef = useRef(null);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (carouselRef.current) {
+        carouselRef.current.scrollBy({ left: 320, behavior: "smooth" });
+      }
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <div className="overflow-x-auto whitespace-nowrap scrollbar-hide" ref={carouselRef} style={{ scrollBehavior: "smooth" }}>
+      <div className="flex gap-4">
+        {galleryImages.map((img, i) => (
+          <div key={img} className="relative w-80 h-64 rounded-2xl overflow-hidden shadow hover:scale-105 transition-transform duration-300 bg-[#F5F5F7] flex-shrink-0">
+            <Image
+              src={`/images/${img}`}
+              alt={`Gallery photo ${i + 1}`}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 80vw, 320px"
+              priority={i < 2}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Activities",
@@ -226,54 +295,34 @@ export default function ActivitiesPage() {
         </div>
       </section>
 
-      {/* Gallery placeholder */}
+      {/* Gallery section with horizontal auto-sliding carousel */}
       <section className="py-16 md:py-24 bg-white" aria-label="Photo and video gallery">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn>
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-              <div>
-                <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">Gallery</span>
-                <h2 className="text-2xl md:text-3xl font-black text-[#0B1F3B] font-poppins">Photos & Videos</h2>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                {["All", "On Campus", "In Community", "Entrepreneurship", "Campaign"].map((filter) => (
-                  <button
-                    key={filter}
-                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${filter === "All" ? "bg-[#0B1F3B] text-white" : "bg-[#F5F5F7] text-[#666] hover:bg-[#0B1F3B]/10"}`}
-                  >
-                    {filter}
-                  </button>
-                ))}
-              </div>
+            <div className="mb-10">
+              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">Gallery</span>
+              <h2 className="text-2xl md:text-3xl font-black text-[#0B1F3B] font-poppins">Photos & Videos</h2>
             </div>
           </AnimateIn>
-          {/* TODO: Replace with real photos and videos. Add actual gallery items below. */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <AnimateIn key={i} delay={i * 0.05}>
-                <div
-                  className={`rounded-2xl aspect-square hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden ${
-                    ["bg-gradient-to-br from-[#0B1F3B] to-[#132d57]",
-                     "bg-gradient-to-br from-[#30A38A] to-[#227a67]",
-                     "bg-gradient-to-br from-[#F2A93B] to-[#d4891a]",
-                     "bg-gradient-to-br from-[#1a3a6b] to-[#0B1F3B]",
-                    ][i % 4]
-                  } flex items-center justify-center`}
-                >
-                  {/* TODO: Replace with actual <Image src={photo.src} fill alt={photo.alt} className="object-cover" /> */}
-                  <span className="text-white/30 text-4xl font-black font-poppins">{i + 1}</span>
-                </div>
-              </AnimateIn>
-            ))}
-          </div>
-          <AnimateIn delay={0.3}>
-            <p className="text-center text-[#888] text-sm mt-8 italic">
-              {/* TODO: Add real photos and video embeds above */}
-              Gallery placeholder. Replace with actual photos and videos.
-            </p>
-          </AnimateIn>
+          <GalleryCarousel />
         </div>
       </section>
+
+          <div key={img} className="relative w-80 h-64 rounded-2xl overflow-hidden shadow hover:scale-105 transition-transform duration-300 bg-[#F5F5F7] flex-shrink-0">
+            <Image
+              src={`/images/${img}`}
+              alt={`Gallery photo ${i + 1}`}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 768px) 80vw, 320px"
+              priority={i < 2}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
     </>
   );
 }

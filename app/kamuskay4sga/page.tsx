@@ -127,7 +127,7 @@ export default function SgaPage() {
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0B1F3B] pt-16">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3B] via-[#132d57] to-[#0a1a30]" />
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "28px 28px" }} />
+        <div className="absolute inset-0 opacity-5 radial-bg" />
         <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[#F2A93B]/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-1/4 right-1/4 w-1/4 h-1/4 bg-[#30A38A]/10 rounded-full blur-3xl pointer-events-none" />
 

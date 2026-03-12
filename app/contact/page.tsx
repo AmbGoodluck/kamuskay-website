@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import AnimateIn from "@/components/ui/AnimateIn";
-import { FaLinkedin, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaFacebook } from "react-icons/fa";
 import { HiMail, HiCheckCircle } from "react-icons/hi";
 
 type Mode = "campaign" | "general";
@@ -199,19 +199,7 @@ export default function ContactPage() {
                         <p className="text-[#666] text-xs">kamarak@berea.edu</p>
                       </div>
                     </a>
-                    <a
-                      href="mailto:kamuskay4sga@berea.edu"
-                      className="flex items-center gap-3 text-sm text-[#444] hover:text-[#0B1F3B] transition-colors group"
-                    >
-                      <span className="w-9 h-9 rounded-xl bg-[#F2A93B]/10 group-hover:bg-[#F2A93B] flex items-center justify-center transition-colors">
-                        <HiMail className="text-[#F2A93B] group-hover:text-white" size={18} />
-                      </span>
-                      <div>
-                        <p className="font-semibold text-[#0B1F3B]">Campaign Email</p>
-                        {/* TODO: Replace with actual campaign email */}
-                        <p className="text-[#666] text-xs">kamuskay4sga@berea.edu</p>
-                      </div>
-                    </a>
+                    {/* Campaign email removed as requested */}
                   </div>
                 </div>
               </AnimateIn>
@@ -221,14 +209,16 @@ export default function ContactPage() {
                   <h3 className="font-bold text-[#0B1F3B] mb-5 font-poppins">Follow Along</h3>
                   <div className="flex gap-3">
                     {[
-                      { icon: FaLinkedin, label: "LinkedIn", href: "#", bg: "bg-[#0077b5]/10 hover:bg-[#0077b5]", color: "text-[#0077b5] group-hover:text-white" },
-                      { icon: FaInstagram, label: "Instagram", href: "#", bg: "bg-pink-50 hover:bg-pink-500", color: "text-pink-500 group-hover:text-white" },
-                      { icon: FaTwitter, label: "Twitter", href: "#", bg: "bg-sky-50 hover:bg-sky-500", color: "text-sky-500 group-hover:text-white" },
+                      { icon: FaLinkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/kamuskay-kamara-3b985b203/", bg: "bg-[#0077b5]/10 hover:bg-[#0077b5]", color: "text-[#0077b5] group-hover:text-white" },
+                      { icon: FaInstagram, label: "Instagram", href: "https://www.instagram.com/kamuskaykamuskaysl?igsh=MW00ZHJ1bGZqOGl3Nw==", bg: "bg-pink-50 hover:bg-pink-500", color: "text-pink-500 group-hover:text-white" },
+                      { icon: FaFacebook, label: "Facebook", href: "https://www.facebook.com/kamuskay.kamuskay.2025", bg: "bg-blue-50 hover:bg-blue-600", color: "text-blue-600 group-hover:text-white" },
                     ].map(({ icon: Icon, label, href, bg, color }) => (
                       <a
                         key={label}
                         href={href}
                         aria-label={label}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={`group w-11 h-11 rounded-xl ${bg} flex items-center justify-center transition-all duration-200`}
                       >
                         <Icon className={`${color} transition-colors`} size={18} />
@@ -236,8 +226,7 @@ export default function ContactPage() {
                     ))}
                   </div>
                   <p className="text-[#888] text-xs mt-3 italic">
-                    {/* TODO: Replace # links with actual social media profile URLs */}
-                    Social links coming soon.
+                    Connect with Kamuskay on social media or by email.
                   </p>
                 </div>
               </AnimateIn>

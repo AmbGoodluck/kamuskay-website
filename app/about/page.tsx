@@ -91,7 +91,7 @@ export default function AboutPage() {
     <>
       {/* Hero */}
       <section className="relative pt-24 pb-16 md:pt-36 md:pb-24 bg-gradient-to-br from-[#0B1F3B] to-[#132d57] overflow-hidden">
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "28px 28px" }} />
+        <div className="absolute inset-0 opacity-5 radial-bg" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimateIn>
             <span className="inline-block text-[#F2A93B] text-sm font-semibold tracking-widest uppercase mb-4">About Kamuskay</span>

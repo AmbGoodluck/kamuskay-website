@@ -1,0 +1,19 @@
+# Cloudflare Pages Configuration for Next.js
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Uncomment below if you want to force HTTPS
+# [[redirects]]
+#   from = "http://*"
+#   to = "https://:splat"
+#   status = 301
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[functions]
+  directory = ".netlify/functions"
