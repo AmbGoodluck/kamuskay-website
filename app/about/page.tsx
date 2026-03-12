@@ -17,6 +17,7 @@ const storyBlocks = [
     side: "right",
     color: "bg-gradient-to-br from-[#0B1F3B] to-[#132d57]",
     image: "/images/sierra-leone-flag-track.jpeg",
+    imagePosition: "object-top",
   },
   {
     label: "African Leadership Academy",
@@ -25,6 +26,7 @@ const storyBlocks = [
     side: "left",
     color: "bg-gradient-to-br from-[#30A38A] to-[#227a67]",
     image: "/images/ala-jumping.jpeg",
+    imagePosition: "object-center",
   },
   {
     label: "Arriving at Berea",
@@ -32,7 +34,8 @@ const storyBlocks = [
     body: "From the moment Kamuskay arrived at Berea College, he threw himself into service. Not because it was required, but because it is simply who he is. He took on roles as an Office Assistant, Lifeguard, News Reporter, Resident Advisor, and TrueBlue Host simultaneously, while maintaining Dean's List standing. His energy and commitment quickly made him a familiar and trusted face across campus.",
     side: "right",
     color: "bg-gradient-to-br from-[#1a3a6b] to-[#0B1F3B]",
-    image: "/images/berea-college-portrait.jpeg",
+    image: "/images/Day one.png.jpeg",
+    imagePosition: "object-top",
   },
   {
     label: "Growing into leadership",
@@ -41,6 +44,7 @@ const storyBlocks = [
     side: "left",
     color: "bg-gradient-to-br from-[#d4891a] to-[#F2A93B]",
     image: "/images/leadership-portrait-suit.jpeg",
+    imagePosition: "object-center",
   },
 ];
 
@@ -120,7 +124,7 @@ export default function AboutPage() {
                     src={block.image}
                     alt={block.title}
                     fill
-                    className="object-cover object-center"
+                    className={`object-cover ${block.imagePosition}`}
                     priority={i === 0}
                   />
                   <div className="absolute bottom-0 left-0 p-4">
