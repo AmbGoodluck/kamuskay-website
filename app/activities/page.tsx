@@ -307,22 +307,6 @@ export default function ActivitiesPage() {
           <GalleryCarousel />
         </div>
       </section>
-
-          <div key={img} className="relative w-80 h-64 rounded-2xl overflow-hidden shadow hover:scale-105 transition-transform duration-300 bg-[#F5F5F7] flex-shrink-0">
-            <Image
-              src={`/images/${img}`}
-              alt={`Gallery photo ${i + 1}`}
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 768px) 80vw, 320px"
-              priority={i < 2}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
     </>
   );
 }
