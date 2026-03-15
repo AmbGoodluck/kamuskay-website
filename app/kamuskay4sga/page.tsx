@@ -424,17 +424,12 @@ export default function Kamuskay4SGAPage() {
 
             {/* ── Right: Ticket visual ── */}
             <AnimateIn direction="right" delay={0.2}>
-              <div className="relative max-w-md mx-auto lg:mx-0 lg:ml-auto">
-                {/*
-                  TODO: Replace this placeholder with the actual ticket hero image.
-                  Recommended: /public/images/campaign/ticket-hero.jpg
-                  A photo of Kamuskay & Makayla together works great here.
-                */}
-                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-[#132d57] to-[#0B1F3B] shadow-2xl border border-white/10">
+              <div className="relative w-full mx-auto lg:mx-0 lg:ml-auto">
+                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#132d57] to-[#0B1F3B] shadow-2xl border border-white/10">
                   <img
                     src="/images/campaign/ticket-hero.jpg.png"
                     alt="Kamuskay Kamara and Makayla Hughes"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top"
                   />
                   {/* Gold gradient bottom */}
                   <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#F2A93B]/30 to-transparent" />
