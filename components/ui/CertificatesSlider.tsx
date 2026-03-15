@@ -3,76 +3,23 @@
 import { useState, useRef } from "react";
 import { HiChevronLeft, HiChevronRight, HiBadgeCheck } from "react-icons/hi";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// ADD CERTIFICATES HERE
-// Each entry becomes one slide in the carousel.
-// Drop the image into /public/images/certificates/ then add an entry below.
-// ─────────────────────────────────────────────────────────────────────────────
 const certificates = [
-  {
-    // Add file → /public/images/certificates/mlk-award.jpg
-    src: "",
-    alt: "MLK Student Leadership Award certificate",
-    label: "MLK Student Leadership Award",
-    year: "2026",
-    issuer: "Berea College",
-  },
-  {
-    // Add file → /public/images/certificates/deans-list-fall24.jpg
-    src: "",
-    alt: "Dean's List certificate -Fall 2024",
-    label: "Dean's List",
-    year: "Fall 2024",
-    issuer: "Berea College",
-  },
-  {
-    // Add file → /public/images/certificates/deans-list-spring24.jpg
-    src: "",
-    alt: "Dean's List certificate -Spring 2024",
-    label: "Dean's List",
-    year: "Spring 2024",
-    issuer: "Berea College",
-  },
-  {
-    // Add file → /public/images/certificates/deans-list-fall23.jpg
-    src: "",
-    alt: "Dean's List certificate -Fall 2023",
-    label: "Dean's List",
-    year: "Fall 2023",
-    issuer: "Berea College",
-  },
-  {
-    // Add file → /public/images/certificates/parker-scholarship.jpg
-    src: "",
-    alt: "Father Henry L. Parker Scholarship certificate",
-    label: "Father Henry L. Parker Scholarship",
-    year: "2025",
-    issuer: "Berea College",
-  },
-  {
-    // Add file → /public/images/certificates/graham-service-award.jpg
-    src: "",
-    alt: "Graham Volunteer Service Award certificate",
-    label: "Graham Volunteer Service Award",
-    year: "2× Recipient",
-    issuer: "Berea College",
-  },
-  {
-    // Add file → /public/images/certificates/entrepreneur-ala.jpg
-    src: "",
-    alt: "Entrepreneur of the Year -ALA certificate",
-    label: "Entrepreneur of the Year",
-    year: "2021",
-    issuer: "ALA",
-  },
-  {
-    // Add file → /public/images/certificates/news-decoder.jpg
-    src: "",
-    alt: "News Decoder Award certificate",
-    label: "News Decoder Award",
-    year: "Multiple wins",
-    issuer: "News Decoder",
-  },
+  { src: "/images/certificates/Screenshot%20(741).png",                                   alt: "Certificate" },
+  { src: "/images/certificates/Screenshot%20(742).png",                                   alt: "Certificate" },
+  { src: "/images/certificates/Screenshot%20(743).png",                                   alt: "Certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46.jpeg",       alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(1).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(2).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(3).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(4).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(5).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(6).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(7).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.46%20(8).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.47.jpeg",       alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.47%20(1).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.47%20(2).jpeg", alt: "Award certificate" },
+  { src: "/images/certificates/WhatsApp%20Image%202026-03-12%20at%2014.11.47%20(3).jpeg", alt: "Award certificate" },
 ];
 
 export default function CertificatesSlider() {
