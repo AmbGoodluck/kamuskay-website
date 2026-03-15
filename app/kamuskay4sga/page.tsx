@@ -431,24 +431,11 @@ export default function Kamuskay4SGAPage() {
                   A photo of Kamuskay & Makayla together works great here.
                 */}
                 <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-[#132d57] to-[#0B1F3B] shadow-2xl border border-white/10">
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                    <div className="flex gap-4 items-end">
-                      <div className="text-6xl font-black text-white/10 font-poppins">
-                        K
-                      </div>
-                      <div className="text-5xl font-black text-[#30A38A]/20 font-poppins">
-                        &amp;
-                      </div>
-                      <div className="text-6xl font-black text-white/10 font-poppins">
-                        M
-                      </div>
-                    </div>
-                    <p className="text-white/20 text-sm text-center px-8">
-                      Ticket photo here
-                      <br />
-                      /public/images/campaign/ticket-hero.jpg
-                    </p>
-                  </div>
+                  <img
+                    src="/images/campaign/ticket-hero.jpg.png"
+                    alt="Kamuskay Kamara and Makayla Hughes"
+                    className="w-full h-full object-cover"
+                  />
                   {/* Gold gradient bottom */}
                   <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#F2A93B]/30 to-transparent" />
                   {/* Names overlay */}
