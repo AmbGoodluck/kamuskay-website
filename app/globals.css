@@ -97,4 +97,18 @@
     background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
     background-size: 28px 28px;
   }
+
+  /* Hide scrollbar while keeping scroll functionality */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* VP commitment card — teal left accent border */
+  .border-l-teal-accent {
+    border-left: 4px solid #30A38A;
+  }
 }

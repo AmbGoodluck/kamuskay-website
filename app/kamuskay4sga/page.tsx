@@ -1,13 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useState, useRef } from "react";
 import AnimateIn from "@/components/ui/AnimateIn";
-import VideoModal from "@/components/ui/VideoModal";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiChevronDown, HiPlay, HiMail, HiUserGroup, HiShare } from "react-icons/hi";
+import {
+  HiChevronDown,
+  HiChevronLeft,
+  HiChevronRight,
+  HiMail,
+  HiShare,
+  HiCheckCircle,
+} from "react-icons/hi";
 
-const issues = [
+// ─────────────────────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────────────────────
+
+const priorities = [
   {
     title: "Student Welfare & Mental Health",
     icon: "🧠",
@@ -16,7 +25,8 @@ const issues = [
       "Create peer support networks across residences and departments",
       "Push for mental health days to be formally recognized in the academic calendar",
     ],
-    detail: "Too many Berea students are navigating mental health challenges in silence. Kamuskay will work with administration and health services to normalize help-seeking and increase resources.",
+    detail:
+      "Too many Berea students are navigating mental health challenges in silence. Kamuskay will work with administration and health services to normalize help-seeking and increase resources.",
   },
   {
     title: "Labor Equity & Fairness",
@@ -26,7 +36,8 @@ const issues = [
       "Create a student-accessible grievance process for labor concerns",
       "Ensure every student understands their rights and responsibilities in WLS",
     ],
-    detail: "Having overseen 450+ students in WLS, Kamuskay has seen firsthand where the system works and where it falls short. He brings lived expertise to this issue.",
+    detail:
+      "Having overseen 450+ students in WLS, Kamuskay has seen firsthand where the system works and where it falls short. He brings lived expertise to this issue.",
   },
   {
     title: "Academic Support & Advising",
@@ -36,7 +47,8 @@ const issues = [
       "Expand tutoring and study resources during peak exam seasons",
       "Advocate for transparent academic policy communication",
     ],
-    detail: "Academic success should not depend on who you know. Kamuskay will push for systems that give every student equal access to guidance and support.",
+    detail:
+      "Academic success should not depend on who you know. Kamuskay will push for systems that give every student equal access to guidance and support.",
   },
   {
     title: "First-Year & Transfer Support",
@@ -46,7 +58,8 @@ const issues = [
       "Create welcome structures for transfer students who currently have no formal onboarding",
       "Connect new students to campus resources within their first week",
     ],
-    detail: "Kamuskay knows what it feels like to arrive somewhere new. His work as a First Year Summit facilitator and RA informs his vision for stronger student onboarding.",
+    detail:
+      "Kamuskay knows what it feels like to arrive somewhere new. His work as a First Year Summit facilitator and RA informs his vision for stronger student onboarding.",
   },
   {
     title: "Campus Life & Culture",
@@ -56,37 +69,77 @@ const issues = [
       "Support student organizations in accessing funding and spaces",
       "Build a campus calendar that genuinely reflects Berea's diversity",
     ],
-    detail: "A campus is not just a place you study. It's a place you live. Kamuskay will make sure Berea feels like a true home away from home.",
-  },
-  {
-    title: "Student Voice & Transparency",
-    icon: "🗣️",
-    commitments: [
-      "Establish a regular SGA town hall for open student feedback",
-      "Publish clear summaries of SGA decisions and their rationale",
-      "Create accessible channels for students to submit issues directly to SGA",
-    ],
-    detail: "SGA should be accountable to students, not just administrators. Kamuskay will build trust through radical transparency and consistent follow-through.",
+    detail:
+      "A campus is not just a place you study. It's a place you live. Kamuskay will make sure Berea feels like a true home away from home.",
   },
 ];
 
-function IssueCard({ issue, index }: { issue: typeof issues[0]; index: number }) {
+const makaylaSlides = [
+  {
+    // TODO: Add photo → /public/images/campaign/makayla-campus.jpg
+    imgSrc: "",
+    imgAlt: "Makayla Hughes on Berea's campus",
+    caption:
+      "Makayla on Berea's campus, committed to student leadership and service.",
+  },
+  {
+    // TODO: Add photo → /public/images/campaign/makayla-bsu.jpg
+    imgSrc: "",
+    imgAlt: "Makayla at the Black Student Union",
+    caption:
+      "Vice President of the Black Student Union, advocating for Black student voices.",
+  },
+  {
+    // TODO: Add photo → /public/images/campaign/makayla-bwi.jpg
+    imgSrc: "",
+    imgAlt: "Black Women Initiative event",
+    caption:
+      "Lead organizer of the Black Women Initiative, empowering Black women on campus.",
+  },
+  {
+    // TODO: Add photo → /public/images/campaign/makayla-cheer.jpg
+    imgSrc: "",
+    imgAlt: "Makayla on the Berea College cheer team",
+    caption:
+      "Former member of the Berea College cheer team, building spirit and community.",
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SUB-COMPONENTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Accordion card for each of Kamuskay's five priorities */
+function PriorityCard({
+  priority,
+  index,
+}: {
+  priority: (typeof priorities)[0];
+  index: number;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <AnimateIn delay={index * 0.07}>
-      <div className="bg-white rounded-2xl border border-[#e0e0e0] overflow-hidden hover:shadow-md transition-shadow">
+      <div className="bg-white rounded-2xl border border-[#e0e0e0] overflow-hidden hover:shadow-md transition-shadow h-full">
         <button
+          type="button"
           onClick={() => setOpen(!open)}
           className="w-full p-6 flex items-start gap-4 text-left group"
-          aria-expanded={open}
+          aria-expanded={open ? "true" : "false"}
         >
-          <span className="text-3xl shrink-0 mt-0.5">{issue.icon}</span>
-          <div className="flex-1">
-            <h3 className="font-bold text-[#0B1F3B] text-lg font-poppins group-hover:text-[#30A38A] transition-colors">{issue.title}</h3>
-            <p className="text-[#666] text-sm mt-1 line-clamp-2">{issue.detail}</p>
+          <span className="text-3xl shrink-0 mt-0.5">{priority.icon}</span>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-bold text-[#0B1F3B] text-lg font-poppins group-hover:text-[#30A38A] transition-colors leading-snug">
+              {priority.title}
+            </h3>
+            <p className="text-[#666] text-sm mt-1 line-clamp-2">
+              {priority.detail}
+            </p>
           </div>
           <HiChevronDown
-            className={`text-[#888] shrink-0 mt-1 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+            className={`text-[#888] shrink-0 mt-1 transition-transform duration-200 ${
+              open ? "rotate-180" : ""
+            }`}
             size={20}
           />
         </button>
@@ -100,11 +153,18 @@ function IssueCard({ issue, index }: { issue: typeof issues[0]; index: number })
               className="overflow-hidden"
             >
               <div className="px-6 pb-6 border-t border-[#f0f0f0] pt-4">
-                <p className="text-[#555] text-sm leading-relaxed mb-4">{issue.detail}</p>
-                <p className="text-xs font-semibold text-[#888] uppercase tracking-widest mb-3">Commitments</p>
+                <p className="text-[#555] text-sm leading-relaxed mb-4">
+                  {priority.detail}
+                </p>
+                <p className="text-xs font-semibold text-[#888] uppercase tracking-widest mb-3">
+                  Commitments
+                </p>
                 <ul className="space-y-2">
-                  {issue.commitments.map((c) => (
-                    <li key={c} className="flex items-start gap-2 text-sm text-[#444]">
+                  {priority.commitments.map((c) => (
+                    <li
+                      key={c}
+                      className="flex items-start gap-2 text-sm text-[#444]"
+                    >
                       <span className="w-1.5 h-1.5 rounded-full bg-[#30A38A] mt-2 shrink-0" />
                       {c}
                     </li>
@@ -119,267 +179,568 @@ function IssueCard({ issue, index }: { issue: typeof issues[0]; index: number })
   );
 }
 
-export default function SgaPage() {
-  const [videoOpen, setVideoOpen] = useState(false);
+/** Special card for Makayla's VP commitment — teal left-border accent */
+function VPCommitmentCard({ index }: { index: number }) {
+  return (
+    <AnimateIn delay={index * 0.07}>
+      <div className="bg-white rounded-2xl border border-[#e0e0e0] overflow-hidden hover:shadow-md transition-shadow h-full border-l-teal-accent">
+        <div className="p-6 h-full flex flex-col">
+          <div className="flex items-start gap-4 mb-4">
+            <span className="text-3xl shrink-0 mt-0.5">🤝</span>
+            <div>
+              <h3 className="font-bold text-[#0B1F3B] text-lg font-poppins leading-snug">
+                Vice President&apos;s Commitment
+              </h3>
+              <p className="text-[#30A38A] text-sm font-semibold mt-0.5">
+                Makayla&apos;s Promise to Students
+              </p>
+            </div>
+          </div>
+          <p className="text-[#555] text-sm leading-relaxed mb-4">
+            As Vice President, Makayla will:
+          </p>
+          <ul className="space-y-3 flex-1">
+            {[
+              "Champion the voices of first-generation, low-income, and marginalized students in every room where decisions are made.",
+              "Strengthen spaces like the Black Student Union and Black Women Initiative so students feel seen, supported, and safe.",
+              "Advocate for policies and programs that help every student not just survive at Berea, but truly thrive—academically, emotionally, and in community.",
+            ].map((c) => (
+              <li
+                key={c}
+                className="flex items-start gap-2 text-sm text-[#444]"
+              >
+                <HiCheckCircle
+                  className="text-[#30A38A] shrink-0 mt-0.5"
+                  size={16}
+                />
+                {c}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </AnimateIn>
+  );
+}
+
+/** Horizontally scrollable slider for Makayla's photos */
+function MakaylaSlider() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const total = makaylaSlides.length;
+
+  const scrollByPage = (dir: "prev" | "next") => {
+    if (!trackRef.current) return;
+    const width = trackRef.current.clientWidth;
+    trackRef.current.scrollBy({
+      left: dir === "next" ? width : -width,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollToSlide = (i: number) => {
+    if (!trackRef.current) return;
+    const children = trackRef.current.children;
+    if (children[i]) {
+      (children[i] as HTMLElement).scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+    setActive(i);
+  };
+
+  const handleScroll = () => {
+    if (!trackRef.current) return;
+    const el = trackRef.current;
+    const firstChild = el.children[0] as HTMLElement | undefined;
+    if (!firstChild) return;
+    const slideWidth = firstChild.offsetWidth + 16; // card width + gap-4
+    const i = Math.round(el.scrollLeft / slideWidth);
+    setActive(Math.min(Math.max(i, 0), total - 1));
+  };
 
   return (
-    <>
-      {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#0B1F3B] pt-16">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3B] via-[#132d57] to-[#0a1a30]" />
-        <div className="absolute inset-0 opacity-5 radial-bg" />
-        <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[#F2A93B]/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-1/4 right-1/4 w-1/4 h-1/4 bg-[#30A38A]/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="relative px-1">
+      {/* ── Track ── */}
+      <div
+        ref={trackRef}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3 no-scrollbar"
+        onScroll={handleScroll}
+      >
+        {makaylaSlides.map((slide, i) => (
+          <div
+            key={i}
+            className="snap-start shrink-0 w-[85%] sm:w-[calc(50%-8px)] lg:w-[calc(33.33%-11px)]"
+          >
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e8e8] hover:shadow-md transition-shadow h-full">
+              {/* Image area */}
+              <div className="aspect-[4/3] bg-gradient-to-br from-[#132d57] to-[#0B1F3B] flex items-center justify-center relative overflow-hidden">
+                {slide.imgSrc ? (
+                  // Once real photos are added they render here
+                  <img
+                    src={slide.imgSrc}
+                    alt={slide.imgAlt}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  /* ── Placeholder until real photos are dropped in ── */
+                  <div className="text-center p-6">
+                    <div className="text-6xl font-black text-white/10 font-poppins select-none">
+                      M
+                    </div>
+                    <p className="text-white/40 text-xs mt-2 leading-snug px-2">
+                      {slide.imgAlt}
+                    </p>
+                    <p className="text-white/20 text-[10px] mt-2">
+                      📸 /public/images/campaign/
+                    </p>
+                  </div>
+                )}
+                {/* Slide counter badge */}
+                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-[#30A38A]/90 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  {i + 1}/{total}
+                </div>
+              </div>
+              {/* Caption */}
+              <div className="p-4">
+                <p className="text-[#444] text-sm leading-relaxed">
+                  {slide.caption}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 md:py-32">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      {/* ── Desktop arrow buttons ── */}
+      <button
+        type="button"
+        onClick={() => scrollByPage("prev")}
+        className="absolute -left-4 top-1/3 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-md border border-[#e0e0e0] items-center justify-center text-[#0B1F3B] hover:bg-[#0B1F3B] hover:text-white transition-colors z-10 hidden sm:flex"
+        aria-label="Previous slide"
+      >
+        <HiChevronLeft size={18} />
+      </button>
+      <button
+        type="button"
+        onClick={() => scrollByPage("next")}
+        className="absolute -right-4 top-1/3 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-md border border-[#e0e0e0] items-center justify-center text-[#0B1F3B] hover:bg-[#0B1F3B] hover:text-white transition-colors z-10 hidden sm:flex"
+        aria-label="Next slide"
+      >
+        <HiChevronRight size={18} />
+      </button>
+
+      {/* ── Dot indicators ── */}
+      <div className="flex justify-center gap-2 mt-4" role="tablist" aria-label="Slider navigation">
+        {makaylaSlides.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => scrollToSlide(i)}
+            role="tab"
+            aria-selected={i === active ? "true" : "false"}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`rounded-full transition-all duration-200 ${
+              i === active
+                ? "w-6 h-2.5 bg-[#30A38A]"
+                : "w-2.5 h-2.5 bg-[#ccc] hover:bg-[#888]"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN PAGE
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default function Kamuskay4SGAPage() {
+  return (
+    <>
+      {/* ══════════════════════════════════════════════════════════════════
+          1. TICKET HERO
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#0B1F3B] pt-16"
+        aria-label="Campaign ticket hero"
+      >
+        {/* Background layers */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3B] via-[#132d57] to-[#071428]" />
+        <div className="absolute inset-0 opacity-5 radial-bg" />
+        <div className="absolute bottom-0 right-0 w-1/2 h-2/3 bg-[#F2A93B]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/3 w-1/3 h-1/3 bg-[#30A38A]/8 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* ── Left: Copy ── */}
             <div>
               <AnimateIn>
+                {/* Election date badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F2A93B]/20 border border-[#F2A93B]/40 rounded-full text-[#F2A93B] text-sm font-medium mb-6">
                   <span className="w-2 h-2 bg-[#F2A93B] rounded-full animate-pulse" />
-                  SGA Executive Chair Campaign 2026
+                  Election Day: March 24, 2026
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white font-poppins leading-[1.05]">
-                  Kamuskay for<br />
-                  <span className="text-[#F2A93B]">SGA Executive Chair.</span>
+
+                {/* Main heading */}
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white font-poppins leading-[1.05] mb-6">
+                  Kamuskay &amp; Makayla
+                  <br />
+                  <span className="text-[#F2A93B]">for SGA President</span>
+                  <br />
+                  <span className="text-white/80 text-3xl sm:text-4xl lg:text-5xl">
+                    &amp; Vice President
+                  </span>
                 </h1>
-                <p className="mt-6 text-white/70 text-lg md:text-xl leading-relaxed">
-                  Building a Berea where every student truly belongs.
+
+                {/* Subheading */}
+                <p className="text-[#30A38A] font-semibold text-lg md:text-xl mb-3">
+                  A solution‑driven team committed to student voice, belonging,
+                  and real change.
                 </p>
-                <div className="mt-8 flex flex-col sm:flex-row gap-4">
+
+                {/* Supporting line */}
+                <p className="text-white/65 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
+                  Together, Kamuskay Kamara and Makayla Hughes are running to
+                  build a Berea where every student—across identity, background,
+                  and experience—has the opportunity to thrive.
+                </p>
+
+                {/* CTA buttons */}
+                <div className="flex flex-col sm:flex-row gap-3">
                   <a
-                    href="#issues"
-                    className="px-8 py-4 bg-[#F2A93B] text-[#0B1F3B] font-bold rounded-full hover:bg-[#f7c46d] hover:shadow-xl hover:shadow-[#F2A93B]/30 hover:-translate-y-1 transition-all duration-200 text-center"
+                    href="#priorities"
+                    className="px-8 py-4 bg-[#F2A93B] text-[#0B1F3B] font-bold rounded-full hover:bg-[#f7c46d] hover:shadow-xl hover:shadow-[#F2A93B]/30 hover:-translate-y-1 transition-all duration-200 text-center min-h-[52px] flex items-center justify-center"
                   >
-                    Read the Platform
+                    Read Our Priorities
                   </a>
                   <a
-                    href="#get-involved"
-                    className="px-8 py-4 border-2 border-white/40 text-white font-bold rounded-full hover:border-white hover:bg-white/10 hover:-translate-y-1 transition-all duration-200 text-center"
+                    href="#makayla"
+                    className="px-8 py-4 border-2 border-white/40 text-white font-bold rounded-full hover:border-[#30A38A] hover:bg-[#30A38A]/10 hover:-translate-y-1 transition-all duration-200 text-center min-h-[52px] flex items-center justify-center"
                   >
-                    Join the Campaign
+                    Meet Makayla
                   </a>
                 </div>
               </AnimateIn>
             </div>
 
-            {/* Portrait + video */}
+            {/* ── Right: Ticket visual ── */}
             <AnimateIn direction="right" delay={0.2}>
-              <div className="relative">
-                {/* TODO: Replace with actual campaign portrait photo */}
-                <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gradient-to-br from-[#132d57] to-[#0B1F3B] shadow-2xl max-w-sm mx-auto">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-8xl font-black text-white/10 font-poppins">K</div>
-                      <p className="text-white/30 text-sm mt-2">Campaign photo here</p>
+              <div className="relative max-w-md mx-auto lg:mx-0 lg:ml-auto">
+                {/*
+                  TODO: Replace this placeholder with the actual ticket hero image.
+                  Recommended: /public/images/campaign/ticket-hero.jpg
+                  A photo of Kamuskay & Makayla together works great here.
+                */}
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-[#132d57] to-[#0B1F3B] shadow-2xl border border-white/10">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+                    <div className="flex gap-4 items-end">
+                      <div className="text-6xl font-black text-white/10 font-poppins">
+                        K
+                      </div>
+                      <div className="text-5xl font-black text-[#30A38A]/20 font-poppins">
+                        &amp;
+                      </div>
+                      <div className="text-6xl font-black text-white/10 font-poppins">
+                        M
+                      </div>
+                    </div>
+                    <p className="text-white/20 text-sm text-center px-8">
+                      Ticket photo here
+                      <br />
+                      /public/images/campaign/ticket-hero.jpg
+                    </p>
+                  </div>
+                  {/* Gold gradient bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#F2A93B]/30 to-transparent" />
+                  {/* Names overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-white font-bold text-sm font-poppins">
+                          Kamuskay Kamara
+                        </p>
+                        <p className="text-[#F2A93B] text-xs">President</p>
+                      </div>
+                      <div className="w-px h-8 bg-white/20" />
+                      <div className="text-right">
+                        <p className="text-white font-bold text-sm font-poppins">
+                          Makayla Hughes
+                        </p>
+                        <p className="text-[#30A38A] text-xs">Vice President</p>
+                      </div>
                     </div>
                   </div>
-                  {/* Gold accent corner */}
-                  <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F2A93B]/40 to-transparent" />
                 </div>
-                {/* Play button overlay */}
-                <button
-                  onClick={() => setVideoOpen(true)}
-                  className="absolute bottom-6 right-6 md:-right-4 w-14 h-14 bg-[#F2A93B] rounded-full flex items-center justify-center shadow-xl hover:bg-[#f7c46d] hover:scale-110 transition-all duration-200"
-                  aria-label="Watch campaign video"
-                >
-                  <HiPlay className="text-[#0B1F3B] ml-1" size={22} />
-                </button>
+                {/* Floating accent badge */}
+                <div className="absolute -bottom-4 -left-4 bg-[#30A38A] text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                  #Kamuskay4SGA
+                </div>
               </div>
             </AnimateIn>
           </div>
         </div>
       </section>
 
-      {/* Vision & stakes */}
-      <section className="py-16 md:py-24 bg-[#F5F5F7]" aria-label="Vision and stakes">
+      {/* ══════════════════════════════════════════════════════════════════
+          2. MEET YOUR PRESIDENT & VICE PRESIDENT
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        className="py-16 md:py-24 bg-[#F5F5F7]"
+        aria-label="Meet the candidates"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn>
             <div className="text-center mb-12">
-              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">The Vision</span>
-              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">What we see. What we can build.</h2>
+              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">
+                Your 2026 Ticket
+              </span>
+              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">
+                Meet your President &amp; Vice President
+              </h2>
             </div>
           </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {/* ── Kamuskay Card ── */}
             <AnimateIn delay={0.1}>
-              <div className="bg-white rounded-3xl p-8 md:p-10 border-l-4 border-[#d4891a] h-full">
-                <h3 className="text-xl font-black text-[#0B1F3B] font-poppins mb-4">📍 What I See</h3>
-                <ul className="space-y-3 text-[#555] text-sm leading-relaxed">
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400 shrink-0">→</span>Students navigating mental health challenges with inadequate support.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400 shrink-0">→</span>Labor placements that sometimes feel unfair or unclear.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400 shrink-0">→</span>First-year and transfer students feeling lost without proper onboarding.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400 shrink-0">→</span>SGA decisions that rarely feel connected to student voices.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-400 shrink-0">→</span>A campus that doesn&apos;t always feel like home, especially for international and first-gen students.
-                  </li>
-                </ul>
+              <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-[#e8e8e8] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full">
+                {/* Profile image */}
+                <div className="aspect-[3/2] bg-gradient-to-br from-[#0B1F3B] to-[#132d57] flex items-center justify-center relative overflow-hidden">
+                  {/*
+                    TODO: Replace with actual photo.
+                    Recommended: /public/images/campaign/kamuskay-profile.jpg
+                  */}
+                  <div className="text-center">
+                    <div className="text-7xl font-black text-white/10 font-poppins">
+                      K
+                    </div>
+                    <p className="text-white/25 text-xs mt-1">
+                      /images/campaign/kamuskay-profile.jpg
+                    </p>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#F2A93B]/25 to-transparent" />
+                  <div className="absolute top-3 left-3 bg-[#F2A93B] text-[#0B1F3B] text-xs font-bold px-3 py-1 rounded-full">
+                    President
+                  </div>
+                </div>
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-black text-[#0B1F3B] font-poppins">
+                    Kamuskay Kamara
+                  </h3>
+                  <p className="text-[#F2A93B] font-semibold text-sm mt-0.5 mb-4">
+                    Candidate for SGA President
+                  </p>
+                  <ul className="space-y-2.5">
+                    {[
+                      "Junior, Communication & Political Science double major, minor in Law, Ethics & Society.",
+                      "Student Director of the Work-Learning-Service program, supervising 450+ students.",
+                      "Community builder, entrepreneur, and long-term policymaker in the making.",
+                    ].map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="flex items-start gap-2.5 text-sm text-[#444]"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#F2A93B] mt-2 shrink-0" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </AnimateIn>
+
+            {/* ── Makayla Card ── */}
             <AnimateIn delay={0.15}>
-              <div className="bg-[#0B1F3B] rounded-3xl p-8 md:p-10 border-l-4 border-[#30A38A] h-full">
-                <h3 className="text-xl font-black text-white font-poppins mb-4">✅ What We Can Build</h3>
-                <ul className="space-y-3 text-white/75 text-sm leading-relaxed">
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#30A38A] shrink-0">→</span>A campus where mental health support is accessible, visible, and stigma-free.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#30A38A] shrink-0">→</span>A WLS system every student understands, trusts, and can navigate with confidence.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#30A38A] shrink-0">→</span>An onboarding experience where no new student feels invisible.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#30A38A] shrink-0">→</span>An SGA that is genuinely transparent, accessible, and responsive.
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-[#30A38A] shrink-0">→</span>A Berea that feels like a true home away from home for every single student.
-                  </li>
-                </ul>
+              <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-[#e8e8e8] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full">
+                {/* Profile image */}
+                <div className="aspect-[3/2] bg-gradient-to-br from-[#227a67] to-[#0B1F3B] flex items-center justify-center relative overflow-hidden">
+                  {/*
+                    TODO: Replace with actual photo.
+                    Recommended: /public/images/campaign/makayla-profile.jpg
+                  */}
+                  <div className="text-center">
+                    <div className="text-7xl font-black text-white/10 font-poppins">
+                      M
+                    </div>
+                    <p className="text-white/25 text-xs mt-1">
+                      /images/campaign/makayla-profile.jpg
+                    </p>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#30A38A]/30 to-transparent" />
+                  <div className="absolute top-3 left-3 bg-[#30A38A] text-white text-xs font-bold px-3 py-1 rounded-full">
+                    Vice President
+                  </div>
+                </div>
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-black text-[#0B1F3B] font-poppins">
+                    Makayla Hughes
+                  </h3>
+                  <p className="text-[#30A38A] font-semibold text-sm mt-0.5 mb-4">
+                    Candidate for Vice President
+                  </p>
+                  <ul className="space-y-2.5">
+                    {[
+                      "Sophomore, Child and Family Studies major with a focus in child development.",
+                      "Vice President of the Black Student Union and lead organizer of the Black Women Initiative.",
+                      "First-generation student from the South Side of Chicago, rooted in advocacy, honesty, and action.",
+                    ].map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="flex items-start gap-2.5 text-sm text-[#444]"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#30A38A] mt-2 shrink-0" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </AnimateIn>
           </div>
         </div>
       </section>
 
-      {/* Issues grid */}
-      <section id="issues" className="py-16 md:py-24 bg-white scroll-mt-20" aria-label="Platform issues">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ══════════════════════════════════════════════════════════════════
+          3. MAKAYLA SPOTLIGHT + HORIZONTAL SLIDER
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        id="makayla"
+        className="py-16 md:py-24 bg-white scroll-mt-20"
+        aria-label="Makayla Hughes spotlight"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn>
-            <div className="text-center mb-12">
-              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">The Platform</span>
-              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">Six Priorities. Real Commitments.</h2>
-              <p className="mt-4 text-[#666] text-base">Click any issue to expand and see concrete commitments.</p>
+            <div className="mb-3">
+              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">
+                Vice Presidential Candidate
+              </span>
+              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">
+                Meet Makayla Hughes
+              </h2>
+              <p className="text-[#F2A93B] font-semibold mt-1">
+                Candidate for Vice President
+              </p>
             </div>
           </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {issues.map((issue, i) => (
-              <IssueCard key={issue.title} issue={issue} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Why I'm running */}
-      <section className="py-16 md:py-24 bg-[#F2A93B]" aria-label="Why Kamuskay is running">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimateIn>
-            <span className="inline-block text-[#0B1F3B]/60 text-sm font-semibold tracking-widest uppercase mb-4">Personal Statement</span>
-            <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins mb-8">Why I&apos;m Running</h2>
-            <div className="space-y-5 text-[#0B1F3B]/80 text-base md:text-lg leading-relaxed">
-              <p>
-                When I arrived at Berea College from Sierra Leone, I didn&apos;t know anyone. I didn&apos;t know the systems. I didn&apos;t know the culture. What I did know was that I had survived harder things by leaning into community and finding solutions. So that&apos;s exactly what I did here.
-              </p>
-              <p>
-                Over the past few years, I&apos;ve supervised 450+ students, organized dialogues, mediated conflicts, advocated for fairness, and celebrated with my community. I&apos;ve seen what students struggle with up close. I&apos;ve also seen what&apos;s possible when someone in a leadership position truly listens and follows through.
-              </p>
-              <p>
-                I&apos;m not running for SGA Executive Chair to add a title to my name. I&apos;m running because I genuinely believe that with the right leadership, Berea can be a place where every student, no matter where they come from, what they look like, or how they got here, feels like they truly belong. That&apos;s the Berea I want to build. And I believe we can build it together.
-              </p>
-            </div>
-            <div className="mt-8 font-bold text-[#0B1F3B] text-xl font-poppins">Kamuskay Kamara</div>
-          </AnimateIn>
-        </div>
-      </section>
-
-      {/* Campaign video */}
-      <section className="py-16 md:py-24 bg-[#0B1F3B]" aria-label="Campaign videos">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimateIn>
-            <div className="text-center mb-10">
-              <span className="inline-block text-[#F2A93B] text-sm font-semibold tracking-widest uppercase mb-3">Campaign Videos</span>
-              <h2 className="text-2xl md:text-3xl font-black text-white font-poppins">Hear directly from Kamuskay.</h2>
-            </div>
-          </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* Main video */}
-            <AnimateIn className="md:col-span-2">
-              <button
-                onClick={() => setVideoOpen(true)}
-                className="w-full aspect-video rounded-2xl bg-gradient-to-br from-[#132d57] to-[#0B1F3B] border border-white/10 flex items-center justify-center group hover:border-[#F2A93B]/40 transition-colors"
-              >
-                {/* TODO: Add actual campaign video thumbnail here */}
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-[#F2A93B] flex items-center justify-center mx-auto group-hover:scale-110 transition-transform shadow-xl">
-                    <HiPlay className="text-[#0B1F3B] ml-1" size={28} />
-                  </div>
-                  <p className="text-white/60 text-sm mt-4">Campaign Introduction Video</p>
-                  <p className="text-white/40 text-xs mt-1">~2 minutes</p>
-                </div>
-              </button>
-            </AnimateIn>
-            {/* Short clips */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start mt-8">
+            {/* ── Bio copy ── */}
             <AnimateIn delay={0.1}>
-              <div className="flex flex-col gap-4">
-                {[
-                  { label: "Q&A with students", duration: "45s" },
-                  { label: "Message to first-years", duration: "1 min" },
-                  { label: "On labor equity", duration: "30s" },
-                ].map((clip, i) => (
-                  <button
-                    key={i}
-                    className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-4 text-left transition-colors group"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-[#F2A93B]/20 flex items-center justify-center shrink-0 group-hover:bg-[#F2A93B]/30">
-                      <HiPlay className="text-[#F2A93B] ml-0.5" size={16} />
-                    </div>
-                    <div>
-                      <p className="text-white text-sm font-medium">{clip.label}</p>
-                      <p className="text-white/40 text-xs">{clip.duration}</p>
-                    </div>
-                  </button>
-                ))}
+              <div className="space-y-4 text-[#444] text-base leading-relaxed">
+                <p>
+                  Makayla Hughes is a sophomore majoring in Child and Family
+                  Studies with a focus in child development. Since arriving at
+                  Berea, she has been dedicated to service, leadership, and
+                  uplifting the voices of others.
+                </p>
+                <p>
+                  She currently serves as Vice President of the Black Student
+                  Union and lead organizer of the Black Women Initiative, a
+                  growing program designed to empower and support Black women on
+                  campus. Makayla also spent two years on the cheer team,
+                  helping build school spirit and community.
+                </p>
+                <p>
+                  A proud first-generation and Emerging Scholars Program student
+                  from the South Side of Chicago, Makayla was raised by strong
+                  women and carries their resilience into every space she enters.
+                  After graduating, she plans to become a midwife and open a
+                  clinic dedicated to caring for women in minority communities.
+                </p>
+                {/* Decorative quote pull */}
+                <blockquote className="border-l-4 border-[#30A38A] pl-4 mt-6 text-[#0B1F3B] italic font-medium">
+                  &ldquo;I want every student to know they have someone in their
+                  corner—someone who will fight for their voice, their space,
+                  and their future at Berea.&rdquo;
+                  <footer className="text-[#888] text-sm font-normal not-italic mt-1">
+                    — Makayla Hughes
+                  </footer>
+                </blockquote>
+              </div>
+            </AnimateIn>
+
+            {/* ── Photo slider ── */}
+            <AnimateIn delay={0.15} className="overflow-hidden">
+              <div className="relative">
+                <p className="text-xs font-semibold text-[#888] uppercase tracking-widest mb-4">
+                  Photo Gallery
+                </p>
+                <MakaylaSlider />
               </div>
             </AnimateIn>
           </div>
-          <p className="text-center text-white/30 text-xs mt-6 italic">
-            {/* TODO: Link actual video files above */}
-            Video placeholders. Replace with actual campaign video embeds.
-          </p>
         </div>
       </section>
 
-      {/* Student voices */}
-      <section className="py-16 md:py-24 bg-[#F5F5F7]" aria-label="What students are asking for">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ══════════════════════════════════════════════════════════════════
+          4. JOINT VISION
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        className="py-16 md:py-24 bg-[#F5F5F7]"
+        aria-label="Joint vision"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn>
-            <div className="text-center mb-10">
-              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">Student Voices</span>
-              <h2 className="text-2xl md:text-3xl font-black text-[#0B1F3B] font-poppins">What Students Are Asking For</h2>
+            <div className="text-center mb-12">
+              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">
+                Shared Mission
+              </span>
+              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">
+                Our Vision for Berea Students
+              </h2>
+              <p className="mt-4 text-[#666] text-base max-w-2xl mx-auto">
+                As a President–Vice President team, Kamuskay and Makayla are
+                committed to building a campus where every student feels
+                represented, supported, and empowered to succeed.
+              </p>
             </div>
           </AnimateIn>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                concern: "\"I wish SGA actually knew what students were going through in WLS. It feels like we don't have a voice.\"",
-                response: "Kamuskay has overseen 450+ WLS students. He doesn't just know, he's lived it. His first act will be a student labor forum.",
+                icon: "🏠",
+                title: "Belonging & Representation",
+                color: "border-[#F2A93B]",
+                iconBg: "bg-[#F2A93B]/10",
+                body: "Cross-cultural dialogue, support for the Black Student Union and Black Women Initiative, and intentional work to make Berea feel like a genuine home for every student—regardless of where they come from.",
               },
               {
-                concern: "\"As a first-year, I felt completely lost for the first month. No one told me where to go or who to talk to.\"",
-                response: "Kamuskay's plan includes expanding the First Year Summit and creating a dedicated peer ambassador program for new students.",
+                icon: "🛡️",
+                title: "Support & Advocacy",
+                color: "border-[#30A38A]",
+                iconBg: "bg-[#30A38A]/10",
+                body: "Student welfare, fair labor experiences, and dedicated support for first-generation and low-income students. Listening isn't enough—this ticket will act on what it hears.",
               },
               {
-                concern: "\"Mental health resources at Berea feel like a secret. I didn't know what was available until I was already struggling.\"",
-                response: "Kamuskay will advocate for proactive mental health communications and push for a visible, accessible student wellness presence on campus.",
+                icon: "✅",
+                title: "Action & Accountability",
+                color: "border-[#0B1F3B]",
+                iconBg: "bg-[#0B1F3B]/10",
+                body: "Moving from listening to real, measurable action. Transparent follow-through on every commitment, so students always know what SGA is doing and why.",
               },
-            ].map((item, i) => (
-              <AnimateIn key={i} delay={i * 0.1}>
-                <div className="bg-white rounded-2xl p-6 h-full flex flex-col gap-4 border border-[#e0e0e0] hover:shadow-md transition-shadow">
-                  <div className="flex-1">
-                    <p className="text-[#444] italic text-sm leading-relaxed">{item.concern}</p>
-                    <p className="text-[#888] text-xs mt-1">Student, Berea College</p>
+            ].map((pillar, i) => (
+              <AnimateIn key={pillar.title} delay={i * 0.1}>
+                <div
+                  className={`bg-white rounded-3xl p-7 border-t-4 ${pillar.color} shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full`}
+                >
+                  <div
+                    className={`w-12 h-12 rounded-2xl ${pillar.iconBg} flex items-center justify-center text-2xl mb-4`}
+                  >
+                    {pillar.icon}
                   </div>
-                  <div className="pt-4 border-t border-[#f0f0f0]">
-                    <p className="text-xs font-semibold text-[#30A38A] uppercase tracking-widest mb-2">Kamuskay&apos;s Response</p>
-                    <p className="text-[#0B1F3B] text-sm leading-relaxed">{item.response}</p>
-                  </div>
+                  <h3 className="text-lg font-black text-[#0B1F3B] font-poppins mb-3">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-[#555] text-sm leading-relaxed">
+                    {pillar.body}
+                  </p>
                 </div>
               </AnimateIn>
             ))}
@@ -387,93 +748,111 @@ export default function SgaPage() {
         </div>
       </section>
 
-      {/* Get involved */}
-      <section id="get-involved" className="py-16 md:py-24 bg-white scroll-mt-20" aria-label="Get involved">
+      {/* ══════════════════════════════════════════════════════════════════
+          5. SIX PRIORITIES. REAL COMMITMENTS.
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        id="priorities"
+        className="py-16 md:py-24 bg-white scroll-mt-20"
+        aria-label="Platform priorities"
+      >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateIn>
             <div className="text-center mb-12">
-              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">Take Action</span>
-              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">Get Involved</h2>
-              <p className="mt-4 text-[#666]">Every conversation, every vote, every share matters.</p>
+              <span className="inline-block text-[#30A38A] text-sm font-semibold tracking-widest uppercase mb-3">
+                The Platform
+              </span>
+              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">
+                Six Priorities. Real Commitments.
+              </h2>
+              <p className="mt-4 text-[#666] text-base">
+                Click any priority to expand and see concrete commitments.
+              </p>
             </div>
           </AnimateIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: HiUserGroup,
-                color: "bg-[#0B1F3B]",
-                textColor: "text-white",
-                accent: "text-[#F2A93B]",
-                title: "Volunteer",
-                body: "Join the campaign team. Help with events, outreach, or communications. Every contribution counts.",
-                cta: "Sign Up to Volunteer",
-                href: "mailto:kamarak@berea.edu?subject=I want to volunteer for Kamuskay4SGA",
-              },
-              {
-                icon: HiMail,
-                color: "bg-[#30A38A]",
-                textColor: "text-white",
-                accent: "text-white",
-                title: "Host a Conversation",
-                body: "Invite Kamuskay to speak at your club meeting, residence hall, or class. Let&apos;s talk directly.",
-                cta: "Request a Visit",
-                href: "mailto:kamarak@berea.edu?subject=Host a conversation with Kamuskay",
-              },
-              {
-                icon: HiShare,
-                color: "bg-[#F2A93B]",
-                textColor: "text-[#0B1F3B]",
-                accent: "text-[#0B1F3B]",
-                title: "Spread the Word",
-                body: "Share this site, talk to your friends, and help spread the message. The more voices, the stronger the movement.",
-                cta: "Share the Campaign",
-                href: "#",
-              },
-            ].map((item, i) => (
-              <AnimateIn key={item.title} delay={i * 0.1}>
-                <div className={`${item.color} rounded-3xl p-8 flex flex-col gap-5 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full`}>
-                  <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center">
-                    <item.icon className={item.textColor} size={24} />
-                  </div>
-                  <h3 className={`text-2xl font-black font-poppins ${item.textColor}`}>{item.title}</h3>
-                  <p className={`text-sm leading-relaxed flex-1 ${item.textColor} opacity-80`}>{item.body}</p>
-                  <a
-                    href={item.href}
-                    className={`inline-flex items-center justify-center gap-2 px-5 py-3 bg-white/20 hover:bg-white/30 ${item.textColor} font-bold rounded-full text-sm transition-all`}
-                  >
-                    {item.cta}
-                  </a>
-                </div>
-              </AnimateIn>
-            ))}
-          </div>
 
-          {/* Primary CTA */}
-          <AnimateIn delay={0.3}>
-            <div className="mt-12 text-center">
-              <div className="inline-flex flex-col sm:flex-row gap-4 p-6 bg-[#F5F5F7] rounded-2xl border border-[#e0e0e0]">
-                <div className="text-left">
-                  <p className="font-bold text-[#0B1F3B]">Ready to vote?</p>
-                  <p className="text-[#666] text-sm">Election day is coming. Make sure your voice is heard.</p>
-                </div>
-                <a
-                  href="mailto:kamarak@berea.edu?subject=I'm supporting Kamuskay for SGA"
-                  className="px-8 py-3 bg-[#F2A93B] text-[#0B1F3B] font-black rounded-full hover:bg-[#f7c46d] hover:shadow-lg hover:-translate-y-0.5 transition-all whitespace-nowrap"
-                >
-                  I&apos;m Supporting Kamuskay
-                </a>
-              </div>
-            </div>
-          </AnimateIn>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {priorities.map((priority, i) => (
+              <PriorityCard key={priority.title} priority={priority} index={i} />
+            ))}
+            {/* 6th card: Makayla's VP commitment — teal left-border accent */}
+            <VPCommitmentCard index={5} />
+          </div>
         </div>
       </section>
 
-      <VideoModal
-        isOpen={videoOpen}
-        onClose={() => setVideoOpen(false)}
-        // TODO: Replace with actual campaign video URL
-        // videoUrl="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=1"
-      />
+      {/* ══════════════════════════════════════════════════════════════════
+          6. ELECTION CTA BAND
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        className="py-16 md:py-20 bg-[#0B1F3B] relative overflow-hidden"
+        aria-label="Election call to action"
+      >
+        {/* Background accents */}
+        <div className="absolute inset-0 opacity-5 radial-bg" />
+        <div className="absolute top-0 left-0 w-64 h-64 bg-[#F2A93B]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#30A38A]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 pointer-events-none" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <AnimateIn>
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F2A93B]/20 border border-[#F2A93B]/40 rounded-full text-[#F2A93B] text-sm font-medium mb-6">
+              <span className="w-2 h-2 bg-[#F2A93B] rounded-full animate-pulse" />
+              Mark Your Calendar
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-poppins mb-4">
+              Election Day
+              <span className="text-[#F2A93B] block sm:inline">
+                {" "}
+                — March 24, 2026
+              </span>
+            </h2>
+
+            <p className="text-white/70 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
+              Your vote decides the leadership that will listen, advocate, and
+              act for you.
+            </p>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="mailto:kamarak@berea.edu?subject=I pledge to vote for Kamuskay %26 Makayla"
+                className="px-10 py-4 bg-[#F2A93B] text-[#0B1F3B] font-black rounded-full hover:bg-[#f7c46d] hover:shadow-2xl hover:shadow-[#F2A93B]/30 hover:-translate-y-1 transition-all duration-200 text-base flex items-center justify-center gap-2 min-h-[56px]"
+              >
+                <HiMail size={20} />
+                Pledge to Vote
+              </a>
+              <button
+                type="button"
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({
+                      title: "Kamuskay & Makayla for SGA",
+                      text: "Vote for Kamuskay Kamara & Makayla Hughes for SGA President & Vice President on March 24, 2026!",
+                      url: window.location.href,
+                    });
+                  } else {
+                    // Fallback: copy link to clipboard
+                    navigator.clipboard.writeText(window.location.href);
+                    alert("Link copied to clipboard!");
+                  }
+                }}
+                className="px-10 py-4 border-2 border-white/40 text-white font-black rounded-full hover:border-[#30A38A] hover:bg-[#30A38A]/10 hover:-translate-y-1 transition-all duration-200 text-base flex items-center justify-center gap-2 min-h-[56px]"
+              >
+                <HiShare size={20} />
+                Share with a Friend
+              </button>
+            </div>
+
+            {/* Bottom tag line */}
+            <p className="mt-10 text-white/30 text-sm">
+              #Kamuskay4SGA · Kamuskay Kamara &amp; Makayla Hughes · Berea
+              College SGA 2026
+            </p>
+          </AnimateIn>
+        </div>
+      </section>
     </>
   );
 }
