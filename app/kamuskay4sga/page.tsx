@@ -76,29 +76,25 @@ const priorities = [
 
 const makaylaSlides = [
   {
-    // TODO: Add photo → /public/images/campaign/makayla-campus.jpg
-    imgSrc: "",
+    imgSrc: "/images/campaign/makyla-campus.jpg.jpeg",
     imgAlt: "Makayla Hughes on Berea's campus",
     caption:
       "Makayla on Berea's campus, committed to student leadership and service.",
   },
   {
-    // TODO: Add photo → /public/images/campaign/makayla-bsu.jpg
-    imgSrc: "",
+    imgSrc: "/images/campaign/makyla-bsu.jpg.jpeg",
     imgAlt: "Makayla at the Black Student Union",
     caption:
       "Vice President of the Black Student Union, advocating for Black student voices.",
   },
   {
-    // TODO: Add photo → /public/images/campaign/makayla-bwi.jpg
-    imgSrc: "",
+    imgSrc: "/images/campaign/makyla-bwi.jpg.jpeg",
     imgAlt: "Black Women Initiative event",
     caption:
       "Lead organizer of the Black Women Initiative, empowering Black women on campus.",
   },
   {
-    // TODO: Add photo → /public/images/campaign/makayla-cheer.jpg
-    imgSrc: "",
+    imgSrc: "/images/campaign/makyla-cheer.jpg.jpeg",
     imgAlt: "Makayla on the Berea College cheer team",
     caption:
       "Former member of the Berea College cheer team, building spirit and community.",
@@ -125,7 +121,7 @@ function PriorityCard({
           type="button"
           onClick={() => setOpen(!open)}
           className="w-full p-6 flex items-start gap-4 text-left group"
-          aria-expanded={open ? "true" : "false"}
+          aria-expanded={open}
         >
           <span className="text-3xl shrink-0 mt-0.5">{priority.icon}</span>
           <div className="flex-1 min-w-0">
@@ -333,15 +329,14 @@ function MakaylaSlider() {
       </button>
 
       {/* ── Dot indicators ── */}
-      <div className="flex justify-center gap-2 mt-4" role="tablist" aria-label="Slider navigation">
+      <div className="flex justify-center gap-2 mt-4" aria-label="Slider navigation">
         {makaylaSlides.map((_, i) => (
           <button
             key={i}
             type="button"
             onClick={() => scrollToSlide(i)}
-            role="tab"
-            aria-selected={i === active ? "true" : "false"}
             aria-label={`Go to slide ${i + 1}`}
+            aria-current={i === active ? "true" : undefined}
             className={`rounded-full transition-all duration-200 ${
               i === active
                 ? "w-6 h-2.5 bg-[#30A38A]"
@@ -509,19 +504,12 @@ export default function Kamuskay4SGAPage() {
             <AnimateIn delay={0.1}>
               <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-[#e8e8e8] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full">
                 {/* Profile image */}
-                <div className="aspect-[3/2] bg-gradient-to-br from-[#0B1F3B] to-[#132d57] flex items-center justify-center relative overflow-hidden">
-                  {/*
-                    TODO: Replace with actual photo.
-                    Recommended: /public/images/campaign/kamuskay-profile.jpg
-                  */}
-                  <div className="text-center">
-                    <div className="text-7xl font-black text-white/10 font-poppins">
-                      K
-                    </div>
-                    <p className="text-white/25 text-xs mt-1">
-                      /images/campaign/kamuskay-profile.jpg
-                    </p>
-                  </div>
+                <div className="aspect-[3/2] bg-gradient-to-br from-[#0B1F3B] to-[#132d57] relative overflow-hidden">
+                  <img
+                    src="/images/campaign/kamuskay-profile.jpg.jpeg"
+                    alt="Kamuskay Kamara"
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#F2A93B]/25 to-transparent" />
                   <div className="absolute top-3 left-3 bg-[#F2A93B] text-[#0B1F3B] text-xs font-bold px-3 py-1 rounded-full">
                     President
@@ -558,19 +546,12 @@ export default function Kamuskay4SGAPage() {
             <AnimateIn delay={0.15}>
               <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-[#e8e8e8] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full">
                 {/* Profile image */}
-                <div className="aspect-[3/2] bg-gradient-to-br from-[#227a67] to-[#0B1F3B] flex items-center justify-center relative overflow-hidden">
-                  {/*
-                    TODO: Replace with actual photo.
-                    Recommended: /public/images/campaign/makayla-profile.jpg
-                  */}
-                  <div className="text-center">
-                    <div className="text-7xl font-black text-white/10 font-poppins">
-                      M
-                    </div>
-                    <p className="text-white/25 text-xs mt-1">
-                      /images/campaign/makayla-profile.jpg
-                    </p>
-                  </div>
+                <div className="aspect-[3/2] bg-gradient-to-br from-[#227a67] to-[#0B1F3B] relative overflow-hidden">
+                  <img
+                    src="/images/campaign/makyla-profile.jpg.jpeg"
+                    alt="Makayla Hughes"
+                    className="w-full h-full object-cover"
+                  />
                   <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#30A38A]/30 to-transparent" />
                   <div className="absolute top-3 left-3 bg-[#30A38A] text-white text-xs font-bold px-3 py-1 rounded-full">
                     Vice President
