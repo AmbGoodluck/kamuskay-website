@@ -96,7 +96,7 @@ export default function Footer() {
           <p>
             &copy; {new Date().getFullYear()} Kamuskay Kamara. All rights reserved.
           </p>
-          <p>Berea College &bull; Berea, Kentucky</p>
+          <p>By: Amadu Studios</p>
         </div>
       </div>
     </footer>
