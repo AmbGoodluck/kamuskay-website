@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AnimateIn from "@/components/ui/AnimateIn";
+import CertificatesSlider from "@/components/ui/CertificatesSlider";
 import { HiAcademicCap, HiStar, HiBookOpen, HiGlobe, HiBadgeCheck } from "react-icons/hi";
 
 export const metadata: Metadata = {
@@ -222,6 +223,26 @@ export default function AcademicsPage() {
               </div>
             </AnimateIn>
           </div>
+        </div>
+      </section>
+
+      {/* Certificates & Awards Slideshow */}
+      <section className="py-12 md:py-20 bg-white" aria-label="Certificates and awards gallery">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimateIn>
+            <span className="inline-block text-[#F2A93B] text-sm font-semibold tracking-widest uppercase mb-3">
+              Certificates &amp; Awards
+            </span>
+            <h2 className="text-2xl md:text-3xl font-black text-[#0B1F3B] font-poppins mb-2">
+              Recognition Gallery
+            </h2>
+            <p className="text-[#666] text-sm mb-8">
+              Swipe or use the arrows to browse certificates and award recognition.
+            </p>
+          </AnimateIn>
+          <AnimateIn delay={0.1}>
+            <CertificatesSlider />
+          </AnimateIn>
         </div>
       </section>
 
