@@ -10,7 +10,7 @@ const tiles = [
     accent: "#F2A93B",
     title: "On Campus",
     description:
-      "WLS Student Director overseeing 450+ students, ASA President, Resident Advisor, TrueBlue Host, First Year Summit facilitator — Kamuskay is everywhere students need him.",
+      "WLS Student Director overseeing 450+ students, ASA President, Resident Advisor, TrueBlue Host, First Year Summit facilitator; Kamuskay is everywhere students need him.",
     href: "/activities",
   },
   {
@@ -19,7 +19,7 @@ const tiles = [
     accent: "#fff",
     title: "In the Community",
     description:
-      "Volunteer firefighter, certified First Aider, Green Dot advocate, two-time Graham Volunteer Service Award winner. Service isn't a line on a résumé — it's a way of life.",
+      "Volunteer firefighter, certified First Aider, Green Dot advocate, two-time Graham Volunteer Service Award winner. Service isn't a line on a résumé; it's a way of life.",
     href: "/activities",
   },
   {
@@ -28,7 +28,7 @@ const tiles = [
     accent: "#0B1F3B",
     title: "Beyond Berea",
     description:
-      "Founder of SoLuTioN unLimited in Sierra Leone — a transportation enterprise and vocational institute empowering women. Entrepreneur of the Year, African Leadership Academy.",
+      "Founder of SoLuTioN unLimited in Sierra Leone, a transportation enterprise and vocational institute empowering women. Entrepreneur of the Year, African Leadership Academy.",
     href: "/activities",
   },
 ];

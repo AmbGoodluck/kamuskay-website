@@ -20,7 +20,7 @@ const activities = [
   },
   {
     title: "Track & Field Athlete",
-    caption: "Competing on the Berea College track team while balancing academics and leadership roles — proving excellence is achievable.",
+    caption: "Competing on the Berea College track team while balancing academics and leadership roles, proving excellence is achievable.",
     image: "/images/track-running-action.jpeg",
     tag: "Athletics",
     focus: "top",
@@ -34,7 +34,7 @@ const activities = [
   },
   {
     title: "Convocation & Campus Speaking",
-    caption: "Delivered speeches representing the student body — sharing a vision of service, community, and belonging.",
+    caption: "Delivered speeches representing the student body, sharing a vision of service, community, and belonging.",
     image: "/images/speaking-podium.jpeg",
     tag: "Leadership",
     focus: "center",

@@ -199,7 +199,7 @@ function VPCommitmentCard({ index }: { index: number }) {
             {[
               "Champion the voices of first-generation, low-income, and marginalized students in every room where decisions are made.",
               "Strengthen spaces like the Black Student Union and Black Women Initiative so students feel seen, supported, and safe.",
-              "Advocate for policies and programs that help every student not just survive at Berea, but truly thrive—academically, emotionally, and in community.",
+              "Advocate for policies and programs that help every student not just survive at Berea, but truly thrive: academically, emotionally, and in community.",
             ].map((c) => (
               <li
                 key={c}
@@ -393,15 +393,15 @@ export default function Kamuskay4SGAPage() {
 
                 {/* Subheading */}
                 <p className="text-[#30A38A] font-semibold text-lg md:text-xl mb-3">
-                  A solution‑driven team committed to student voice, belonging,
+                  A solution-driven team committed to student voice, belonging,
                   and real change.
                 </p>
 
                 {/* Supporting line */}
                 <p className="text-white/65 text-base md:text-lg leading-relaxed mb-8 max-w-xl">
                   Together, Kamuskay Kamara and Makayla Hughes are running to
-                  build a Berea where every student—across identity, background,
-                  and experience—has the opportunity to thrive.
+                  build a Berea where every student, across identity, background,
+                  and experience, has the opportunity to thrive.
                 </p>
 
                 {/* CTA buttons */}
@@ -431,26 +431,6 @@ export default function Kamuskay4SGAPage() {
                     alt="Kamuskay Kamara and Makayla Hughes"
                     className="w-full h-full object-cover object-top"
                   />
-                  {/* Gold gradient bottom */}
-                  <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-[#F2A93B]/30 to-transparent" />
-                  {/* Names overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-white font-bold text-sm font-poppins">
-                          Kamuskay Kamara
-                        </p>
-                        <p className="text-[#F2A93B] text-xs">President</p>
-                      </div>
-                      <div className="w-px h-8 bg-white/20" />
-                      <div className="text-right">
-                        <p className="text-white font-bold text-sm font-poppins">
-                          Makayla Hughes
-                        </p>
-                        <p className="text-[#30A38A] text-xs">Vice President</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 {/* Floating accent badge */}
                 <div className="absolute -bottom-4 -left-4 bg-[#30A38A] text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
@@ -619,10 +599,10 @@ export default function Kamuskay4SGAPage() {
                 {/* Decorative quote pull */}
                 <blockquote className="border-l-4 border-[#30A38A] pl-4 mt-6 text-[#0B1F3B] italic font-medium">
                   &ldquo;I want every student to know they have someone in their
-                  corner—someone who will fight for their voice, their space,
+                  corner; someone who will fight for their voice, their space,
                   and their future at Berea.&rdquo;
                   <footer className="text-[#888] text-sm font-normal not-italic mt-1">
-                    — Makayla Hughes
+                    Makayla Hughes
                   </footer>
                 </blockquote>
               </div>
@@ -658,7 +638,7 @@ export default function Kamuskay4SGAPage() {
                 Our Vision for Berea Students
               </h2>
               <p className="mt-4 text-[#666] text-base max-w-2xl mx-auto">
-                As a President–Vice President team, Kamuskay and Makayla are
+                As a President and Vice President team, Kamuskay and Makayla are
                 committed to building a campus where every student feels
                 represented, supported, and empowered to succeed.
               </p>
@@ -672,14 +652,14 @@ export default function Kamuskay4SGAPage() {
                 title: "Belonging & Representation",
                 color: "border-[#F2A93B]",
                 iconBg: "bg-[#F2A93B]/10",
-                body: "Cross-cultural dialogue, support for the Black Student Union and Black Women Initiative, and intentional work to make Berea feel like a genuine home for every student—regardless of where they come from.",
+                body: "Cross-cultural dialogue, support for the Black Student Union and Black Women Initiative, and intentional work to make Berea feel like a genuine home for every student, regardless of where they come from.",
               },
               {
                 icon: "🛡️",
                 title: "Support & Advocacy",
                 color: "border-[#30A38A]",
                 iconBg: "bg-[#30A38A]/10",
-                body: "Student welfare, fair labor experiences, and dedicated support for first-generation and low-income students. Listening isn't enough—this ticket will act on what it hears.",
+                body: "Student welfare, fair labor experiences, and dedicated support for first-generation and low-income students. Listening isn't enough; this ticket will act on what it hears.",
               },
               {
                 icon: "✅",
@@ -768,7 +748,7 @@ export default function Kamuskay4SGAPage() {
               Election Day
               <span className="text-[#F2A93B] block sm:inline">
                 {" "}
-                — March 24, 2026
+                March 24, 2026
               </span>
             </h2>
 

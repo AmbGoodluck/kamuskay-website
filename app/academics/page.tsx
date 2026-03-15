@@ -20,7 +20,7 @@ const awards = [
   { title: "Dean's List", year: "Fall 2023, Spring 2024, Fall 2024", icon: HiAcademicCap, color: "text-[#0B1F3B]" },
   { title: "Father Henry L. Parker Scholarship", year: "2025", icon: HiBadgeCheck, color: "text-[#30A38A]" },
   { title: "Graham Volunteer Service Award", year: "2× Recipient", icon: HiStar, color: "text-[#F2A93B]" },
-  { title: "Entrepreneur of the Year – ALA", year: "2021", icon: HiLightningBolt, color: "text-[#30A38A]" },
+  { title: "Entrepreneur of the Year, ALA", year: "2021", icon: HiLightningBolt, color: "text-[#30A38A]" },
   { title: "News Decoder Award", year: "Multiple wins", icon: HiBookOpen, color: "text-[#0B1F3B]" },
 ];
 

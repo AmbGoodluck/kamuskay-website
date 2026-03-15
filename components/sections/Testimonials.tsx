@@ -4,7 +4,7 @@ import { FaQuoteLeft } from "react-icons/fa";
 const testimonials = [
   {
     quote:
-      "Kamuskay doesn't just talk about change — he shows up and makes it happen. I've watched him transform how our work program feels to students.",
+      "Kamuskay doesn't just talk about change; he shows up and makes it happen. I've watched him transform how our work program feels to students.",
     author: "Student Peer",
     role: "Berea College Junior",
     // TODO: Replace with actual photo: avatar: "/images/testimonial-1.jpg"

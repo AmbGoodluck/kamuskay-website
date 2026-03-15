@@ -45,16 +45,16 @@ export default function StorySnapshot() {
                 <p>
                   Born and raised in Sierra Leone, Kamuskay Kamara&apos;s journey
                   to Berea College was shaped by a deep belief in community and
-                  solutions. From founding <em>SoLuTioN unLimited</em> — a
+                  solutions. From founding <em>SoLuTioN unLimited</em>, a
                   transportation and vocational enterprise empowering women in
-                  his home country — to winning the Entrepreneur of the Year
+                  his home country, to winning the Entrepreneur of the Year
                   award at the African Leadership Academy, Kamuskay has always
                   turned ideas into impact.
                 </p>
                 <p>
                   At Berea, he is pursuing a double major in{" "}
                   <strong>Communication and Political Science</strong> with a
-                  minor in <strong>Law, Ethics & Society</strong> — studying the
+                  minor in <strong>Law, Ethics & Society</strong>, studying the
                   exact disciplines that equip him to serve, advocate, and lead
                   for every student on campus.
                 </p>

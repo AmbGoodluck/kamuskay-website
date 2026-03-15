@@ -20,7 +20,7 @@ const certificates = [
   {
     // Add file → /public/images/certificates/deans-list-fall24.jpg
     src: "",
-    alt: "Dean's List certificate – Fall 2024",
+    alt: "Dean's List certificate -Fall 2024",
     label: "Dean's List",
     year: "Fall 2024",
     issuer: "Berea College",
@@ -28,7 +28,7 @@ const certificates = [
   {
     // Add file → /public/images/certificates/deans-list-spring24.jpg
     src: "",
-    alt: "Dean's List certificate – Spring 2024",
+    alt: "Dean's List certificate -Spring 2024",
     label: "Dean's List",
     year: "Spring 2024",
     issuer: "Berea College",
@@ -36,7 +36,7 @@ const certificates = [
   {
     // Add file → /public/images/certificates/deans-list-fall23.jpg
     src: "",
-    alt: "Dean's List certificate – Fall 2023",
+    alt: "Dean's List certificate -Fall 2023",
     label: "Dean's List",
     year: "Fall 2023",
     issuer: "Berea College",
@@ -60,7 +60,7 @@ const certificates = [
   {
     // Add file → /public/images/certificates/entrepreneur-ala.jpg
     src: "",
-    alt: "Entrepreneur of the Year – ALA certificate",
+    alt: "Entrepreneur of the Year -ALA certificate",
     label: "Entrepreneur of the Year",
     year: "2021",
     issuer: "ALA",
@@ -121,47 +121,23 @@ export default function CertificatesSlider() {
             key={i}
             className="snap-start shrink-0 w-[85%] sm:w-[calc(50%-8px)] lg:w-[calc(33.33%-11px)]"
           >
-            <div className="bg-white rounded-2xl overflow-hidden border border-[#e8e8e8] shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
-              {/* Image area */}
-              <div className="aspect-[4/3] bg-gradient-to-br from-[#132d57] to-[#0B1F3B] relative overflow-hidden flex items-center justify-center">
-                {cert.src ? (
-                  <img
-                    src={cert.src}
-                    alt={cert.alt}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  /* Placeholder until real image is dropped in */
-                  <div className="text-center p-6">
-                    <HiBadgeCheck className="text-white/20 mx-auto mb-3" size={48} />
-                    <p className="text-white/40 text-xs leading-snug px-2">{cert.alt}</p>
-                    <p className="text-white/20 text-[10px] mt-2">
-                      📄 /public/images/certificates/
-                    </p>
-                  </div>
-                )}
-                {/* Slide counter */}
-                <div className="absolute top-3 right-3 bg-[#F2A93B]/90 text-[#0B1F3B] text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
-                  {i + 1}/{total}
+            <div className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-[#132d57] to-[#0B1F3B] aspect-[4/3] relative flex items-center justify-center">
+              {cert.src ? (
+                <img
+                  src={cert.src}
+                  alt={cert.alt}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                /* Placeholder until real image is dropped in */
+                <div className="text-center p-6">
+                  <HiBadgeCheck className="text-white/20 mx-auto mb-3" size={48} />
+                  <p className="text-white/40 text-xs leading-snug px-2">{cert.alt}</p>
+                  <p className="text-white/20 text-[10px] mt-2">
+                    📄 /public/images/certificates/
+                  </p>
                 </div>
-              </div>
-
-              {/* Caption */}
-              <div className="p-4 flex flex-col gap-1 flex-1">
-                <p className="font-bold text-[#0B1F3B] text-sm leading-snug font-poppins">
-                  {cert.label}
-                </p>
-                <div className="flex items-center gap-2 mt-auto pt-2 flex-wrap">
-                  {cert.issuer && (
-                    <span className="text-xs text-[#666]">{cert.issuer}</span>
-                  )}
-                  {cert.year && (
-                    <span className="text-xs font-semibold text-[#F2A93B] bg-[#F2A93B]/10 px-2 py-0.5 rounded-full">
-                      {cert.year}
-                    </span>
-                  )}
-                </div>
-              </div>
+              )}
             </div>
           </div>
         ))}
