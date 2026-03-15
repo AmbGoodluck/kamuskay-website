@@ -82,16 +82,6 @@ export default function Footer() {
                 kamarak@berea.edu
               </a>
             </p>
-            <p className="mt-4 text-white/70 text-sm">
-              <span className="block text-white font-medium">Campaign Email</span>
-              <a
-                href="mailto:kamuskay4sga@berea.edu"
-                className="hover:text-[#F2A93B] transition-colors"
-              >
-                {/* TODO: Replace with actual campaign email */}
-                kamuskay4sga@berea.edu
-              </a>
-            </p>
             <Link
               href="/kamuskay4sga"
               className="mt-6 inline-flex items-center gap-2 px-5 py-2.5 bg-[#F2A93B] text-[#0B1F3B] font-bold rounded-full text-sm hover:bg-[#f7c46d] transition-all hover:-translate-y-0.5 hover:shadow-md"
