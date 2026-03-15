@@ -19,15 +19,15 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "Kamuskay Kamara | SGA Executive Chair Candidate",
+    default: "Kamuskay Kamara | SGA President Candidate",
     template: "%s | Kamuskay Kamara",
   },
   description:
-    "Kamuskay Kamara: Berea College junior, community builder, and candidate for SGA Executive Chair. Leadership that listens. Action that delivers.",
+    "Kamuskay Kamara: Berea College junior, community builder, and candidate for SGA President. Leadership that listens. Action that delivers.",
   openGraph: {
-    title: "Kamuskay Kamara | SGA Executive Chair Candidate",
+    title: "Kamuskay Kamara | SGA President Candidate",
     description:
-      "Leadership that listens. Action that delivers. Kamuskay Kamara for SGA Executive Chair at Berea College.",
+      "Leadership that listens. Action that delivers. Kamuskay Kamara for SGA President at Berea College.",
     type: "website",
   },
 };

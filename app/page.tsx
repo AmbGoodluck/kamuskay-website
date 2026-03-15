@@ -11,7 +11,7 @@ import CampaignBand from "@/components/sections/CampaignBand";
 export const metadata: Metadata = {
   title: "Kamuskay Kamara | Leadership that listens. Action that delivers.",
   description:
-    "Kamuskay Kamara: Berea College junior, community builder, and candidate for SGA Executive Chair.",
+    "Kamuskay Kamara: Berea College junior, community builder, and candidate for SGA President.",
 };
 
 export default function HomePage() {

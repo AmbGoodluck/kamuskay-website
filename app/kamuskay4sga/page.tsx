@@ -377,7 +377,7 @@ export default function Kamuskay4SGAPage() {
                 {/* Election date badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F2A93B]/20 border border-[#F2A93B]/40 rounded-full text-[#F2A93B] text-sm font-medium mb-6">
                   <span className="w-2 h-2 bg-[#F2A93B] rounded-full animate-pulse" />
-                  Election Day: March 24, 2026
+                  Election Days: March 17–24, 2026
                 </div>
 
                 {/* Main heading */}
@@ -745,10 +745,10 @@ export default function Kamuskay4SGAPage() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white font-poppins mb-4">
-              Election Day
+              Election Days
               <span className="text-[#F2A93B] block sm:inline">
                 {" "}
-                March 24, 2026
+                March 17–24, 2026
               </span>
             </h2>
 
@@ -772,7 +772,7 @@ export default function Kamuskay4SGAPage() {
                   if (navigator.share) {
                     navigator.share({
                       title: "Kamuskay & Makayla for SGA",
-                      text: "Vote for Kamuskay Kamara & Makayla Hughes for SGA President & Vice President on March 24, 2026!",
+                      text: "Vote for Kamuskay Kamara & Makayla Hughes for SGA President & Vice President — Election Days: March 17–24, 2026!",
                       url: window.location.href,
                     });
                   } else {

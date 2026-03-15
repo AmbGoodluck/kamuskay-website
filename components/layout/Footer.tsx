@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FaLinkedin, FaInstagram, FaTwitter, FaEnvelope } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaFacebook, FaEnvelope } from "react-icons/fa";
 
 const footerLinks = [
   { href: "/about", label: "About" },
@@ -10,9 +10,9 @@ const footerLinks = [
 ];
 
 const socialLinks = [
-  { href: "#", label: "LinkedIn", icon: FaLinkedin },
-  { href: "#", label: "Instagram", icon: FaInstagram },
-  { href: "#", label: "Twitter / X", icon: FaTwitter },
+  { href: "https://www.linkedin.com/in/kamuskay-kamara-3b985b203?utm_source=share_via&utm_content=profile&utm_medium=member_ios", label: "LinkedIn", icon: FaLinkedin },
+  { href: "https://www.instagram.com/kamuskaykamuskaysl?igsh=MTQ3dzEzYm9icnlkdg%3D%3D&utm_source=qr", label: "Instagram", icon: FaInstagram },
+  { href: "https://www.facebook.com/kamuskay.kamuskay.2025", label: "Facebook", icon: FaFacebook },
   { href: "mailto:kamarak@berea.edu", label: "Email", icon: FaEnvelope },
 ];
 
@@ -32,7 +32,7 @@ export default function Footer() {
             </p>
             <p className="mt-4 text-white/60 text-sm leading-relaxed max-w-xs">
               Berea College junior, community builder, and candidate for SGA
-              Executive Chair. Building a Berea where every student truly belongs.
+              President. Building a Berea where every student truly belongs.
             </p>
             {/* Social Icons */}
             <div className="flex gap-3 mt-6">
@@ -41,6 +41,8 @@ export default function Footer() {
                   key={label}
                   href={href}
                   aria-label={label}
+                  target={href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
                   className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#F2A93B] hover:text-[#0B1F3B] flex items-center justify-center transition-all duration-200 text-white"
                 >
                   <Icon size={18} />

@@ -40,7 +40,7 @@ const storyBlocks = [
   {
     label: "Growing into leadership",
     title: "Student Director, ASA President, SGA Candidate",
-    body: "Kamuskay rose to become WLS Student Director, overseeing 450+ students in the Work-Learning-Service program, and President of the African Students Association. He organized Berea's first African & African American student dialogue, facilitated the First Year Summit, and advocated for mental health and equity. Now, he channels all that experience into his run for SGA Executive Chair.",
+    body: "Kamuskay rose to become WLS Student Director, overseeing 450+ students in the Work-Learning-Service program, and President of the African Students Association. He organized Berea's first African & African American student dialogue, facilitated the First Year Summit, and advocated for mental health and equity. Now, he channels all that experience into his run for SGA President.",
     side: "left",
     color: "bg-gradient-to-br from-[#d4891a] to-[#F2A93B]",
     image: "/images/leadership-portrait-suit.jpeg",
@@ -87,7 +87,7 @@ const timeline = [
   { year: "2024", title: "ASA President", body: "Elected President of the African Students Association; organized the first cross-cultural student dialogue.", color: "bg-[#30A38A]" },
   { year: "Fall 2024", title: "Dean's List & WLS Director", body: "Promoted to Student Director overseeing 450+ students.", color: "bg-[#0B1F3B]" },
   { year: "2025", title: "MLK Leadership Award & Graham Award", body: "Recognized for outstanding community service and student leadership.", color: "bg-[#F2A93B]" },
-  { year: "2026", title: "SGA Executive Chair Candidate", body: "Running to build a Berea where every student truly belongs.", color: "bg-[#30A38A]" },
+  { year: "2026", title: "SGA President Candidate", body: "Running to build a Berea where every student truly belongs.", color: "bg-[#30A38A]" },
 ];
 
 export default function AboutPage() {

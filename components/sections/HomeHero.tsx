@@ -49,7 +49,7 @@ export default function HomeHero() {
               className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F2A93B]/20 border border-[#F2A93B]/40 rounded-full text-[#F2A93B] text-sm font-medium mb-6"
             >
               <span className="w-2 h-2 bg-[#F2A93B] rounded-full animate-pulse" />
-              Berea College · SGA Executive Chair Candidate
+              Berea College · SGA President Candidate
             </motion.div>
 
             {/* Headline */}
@@ -73,7 +73,7 @@ export default function HomeHero() {
               className="mt-6 text-lg md:text-xl text-white/80 leading-relaxed max-w-xl"
             >
               Kamuskay Kamara is a junior at Berea College, community builder,
-              and candidate for SGA Executive Chair.
+              and candidate for SGA President.
             </motion.p>
 
             {/* CTA Buttons */}

@@ -15,7 +15,7 @@ export default function CampaignBand() {
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-white font-poppins leading-tight">
             Kamuskay is running for{" "}
-            <span className="text-[#F2A93B]">SGA Executive Chair</span> to help
+            <span className="text-[#F2A93B]">SGA President</span> to help
             Berea feel like a true home away from home for every student.
           </h2>
           <p className="mt-6 text-white/65 text-lg leading-relaxed max-w-2xl mx-auto">
