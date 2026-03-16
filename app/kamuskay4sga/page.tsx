@@ -74,6 +74,33 @@ const priorities = [
   },
 ];
 
+const kamuskaySlides = [
+  {
+    imgSrc: "/images/leadership-portrait-suit.jpeg",
+    imgAlt: "Kamuskay Kamara in a leadership portrait",
+    caption:
+      "Kamuskay Kamara: a solutions-driven leader committed to student advocacy and real change.",
+  },
+  {
+    imgSrc: "/images/speaking-podium.jpeg",
+    imgAlt: "Kamuskay speaking at a podium",
+    caption:
+      "A confident voice on campus, speaking up for students and driving meaningful outcomes.",
+  },
+  {
+    imgSrc: "/images/wls-presentation.jpeg",
+    imgAlt: "Kamuskay leading a WLS presentation",
+    caption:
+      "Student Director of the Work-Learning-Service program, overseeing 450+ students.",
+  },
+  {
+    imgSrc: "/images/asa-group.jpeg",
+    imgAlt: "Kamuskay with the African Students Association",
+    caption:
+      "President of the African Students Association, building cross-cultural community at Berea.",
+  },
+];
+
 const makaylaSlides = [
   {
     imgSrc: "/images/campaign/makyla-campus.jpg.jpeg",
@@ -349,6 +376,128 @@ function MakaylaSlider() {
   );
 }
 
+/** Horizontally scrollable slider for Kamuskay's photos */
+function KamuskaySlider() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const total = kamuskaySlides.length;
+
+  const scrollByPage = (dir: "prev" | "next") => {
+    if (!trackRef.current) return;
+    const width = trackRef.current.clientWidth;
+    trackRef.current.scrollBy({
+      left: dir === "next" ? width : -width,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollToSlide = (i: number) => {
+    if (!trackRef.current) return;
+    const children = trackRef.current.children;
+    if (children[i]) {
+      (children[i] as HTMLElement).scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+    setActive(i);
+  };
+
+  const handleScroll = () => {
+    if (!trackRef.current) return;
+    const el = trackRef.current;
+    const firstChild = el.children[0] as HTMLElement | undefined;
+    if (!firstChild) return;
+    const slideWidth = firstChild.offsetWidth + 16;
+    const i = Math.round(el.scrollLeft / slideWidth);
+    setActive(Math.min(Math.max(i, 0), total - 1));
+  };
+
+  return (
+    <div className="relative px-1">
+      {/* ── Track ── */}
+      <div
+        ref={trackRef}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3 no-scrollbar"
+        onScroll={handleScroll}
+      >
+        {kamuskaySlides.map((slide, i) => (
+          <div
+            key={i}
+            className="snap-start shrink-0 w-[85%] sm:w-[calc(50%-8px)] lg:w-[calc(33.33%-11px)]"
+          >
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e8e8e8] hover:shadow-md transition-shadow h-full">
+              <div className="aspect-[4/3] bg-gradient-to-br from-[#0B1F3B] to-[#132d57] flex items-center justify-center relative overflow-hidden">
+                {slide.imgSrc ? (
+                  <img
+                    src={slide.imgSrc}
+                    alt={slide.imgAlt}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="text-center p-6">
+                    <div className="text-6xl font-black text-white/10 font-poppins select-none">
+                      K
+                    </div>
+                    <p className="text-white/40 text-xs mt-2 leading-snug px-2">
+                      {slide.imgAlt}
+                    </p>
+                  </div>
+                )}
+                <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-[#F2A93B]/90 flex items-center justify-center text-[#0B1F3B] text-xs font-bold shadow-sm">
+                  {i + 1}/{total}
+                </div>
+              </div>
+              <div className="p-4">
+                <p className="text-[#444] text-sm leading-relaxed">
+                  {slide.caption}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Desktop arrow buttons ── */}
+      <button
+        type="button"
+        onClick={() => scrollByPage("prev")}
+        className="absolute -left-4 top-1/3 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-md border border-[#e0e0e0] items-center justify-center text-[#0B1F3B] hover:bg-[#0B1F3B] hover:text-white transition-colors z-10 hidden sm:flex"
+        aria-label="Previous slide"
+      >
+        <HiChevronLeft size={18} />
+      </button>
+      <button
+        type="button"
+        onClick={() => scrollByPage("next")}
+        className="absolute -right-4 top-1/3 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-md border border-[#e0e0e0] items-center justify-center text-[#0B1F3B] hover:bg-[#0B1F3B] hover:text-white transition-colors z-10 hidden sm:flex"
+        aria-label="Next slide"
+      >
+        <HiChevronRight size={18} />
+      </button>
+
+      {/* ── Dot indicators ── */}
+      <div className="flex justify-center gap-2 mt-4" aria-label="Slider navigation">
+        {kamuskaySlides.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => scrollToSlide(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            aria-current={i === active ? "true" : undefined}
+            className={`rounded-full transition-all duration-200 ${
+              i === active
+                ? "w-6 h-2.5 bg-[#F2A93B]"
+                : "w-2.5 h-2.5 bg-[#ccc] hover:bg-[#888]"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN PAGE
 // ─────────────────────────────────────────────────────────────────────────────
@@ -550,11 +699,89 @@ export default function Kamuskay4SGAPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          3. MAKAYLA SPOTLIGHT + HORIZONTAL SLIDER
+          3. KAMUSKAY SPOTLIGHT + HORIZONTAL SLIDER
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        id="kamuskay"
+        className="py-16 md:py-24 bg-white scroll-mt-20"
+        aria-label="Kamuskay Kamara spotlight"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimateIn>
+            <div className="mb-3">
+              <span className="inline-block text-[#F2A93B] text-sm font-semibold tracking-widest uppercase mb-3">
+                Presidential Candidate
+              </span>
+              <h2 className="text-2xl md:text-4xl font-black text-[#0B1F3B] font-poppins">
+                Meet Kamuskay Kamara
+              </h2>
+              <p className="text-[#F2A93B] font-semibold mt-1">
+                Candidate for SGA President
+              </p>
+            </div>
+          </AnimateIn>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start mt-8">
+            {/* ── Bio copy ── */}
+            <AnimateIn delay={0.1}>
+              <div className="space-y-4 text-[#444] text-base leading-relaxed">
+                <p>
+                  Kamuskay Kamara is a junior at Berea College from Sierra Leone,
+                  double majoring in Communication and Political Science with a
+                  minor in Law, Ethics and Society. From the moment he arrived at
+                  Berea, he threw himself into service and leadership, quickly
+                  becoming one of the most recognized student leaders on campus.
+                </p>
+                <p>
+                  He currently serves as Student Director of the
+                  Work-Learning-Service program, overseeing and supporting more
+                  than 450 students across WLS placements. He also serves as
+                  President of the African Students Association, a Resident
+                  Advisor, and has contributed across campus as a lifeguard, news
+                  reporter, and TrueBlue Host. Kamuskay organized Berea&apos;s
+                  first African and African American student dialogue and served
+                  as a First Year Summit facilitator.
+                </p>
+                <p>
+                  Before Berea, Kamuskay founded SoLuTioN unLimited in Sierra
+                  Leone, a transportation enterprise and vocational training
+                  institute for women, earning him Entrepreneur of the Year at
+                  the African Leadership Academy (2021). He is a three-time
+                  Dean&apos;s List honoree, a two-time Graham Volunteer Service
+                  Award recipient, and the 2026 MLK Student Leadership Award
+                  recipient.
+                </p>
+                {/* Decorative quote pull */}
+                <blockquote className="border-l-4 border-[#F2A93B] pl-4 mt-6 text-[#0B1F3B] italic font-medium">
+                  &ldquo;From the moment I arrived at Berea, I threw myself into
+                  service, not because it was required, but because it is simply
+                  who I am.&rdquo;
+                  <footer className="text-[#888] text-sm font-normal not-italic mt-1">
+                    Kamuskay Kamara
+                  </footer>
+                </blockquote>
+              </div>
+            </AnimateIn>
+
+            {/* ── Photo slider ── */}
+            <AnimateIn delay={0.15} className="overflow-hidden">
+              <div className="relative">
+                <p className="text-xs font-semibold text-[#888] uppercase tracking-widest mb-4">
+                  Photo Gallery
+                </p>
+                <KamuskaySlider />
+              </div>
+            </AnimateIn>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          4. MAKAYLA SPOTLIGHT + HORIZONTAL SLIDER
       ══════════════════════════════════════════════════════════════════ */}
       <section
         id="makayla"
-        className="py-16 md:py-24 bg-white scroll-mt-20"
+        className="py-16 md:py-24 bg-[#F5F5F7] scroll-mt-20"
         aria-label="Makayla Hughes spotlight"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
