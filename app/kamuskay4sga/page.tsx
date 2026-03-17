@@ -567,6 +567,16 @@ export default function Kamuskay4SGAPage() {
                   >
                     Meet Makayla
                   </a>
+                  <a
+                    href="https://forms.office.com/pages/responsepage.aspx?id=X429WeES0k2gUEYIdA9kdwTVPC7AkstNm7UqsFa2SOlURFRPN0JXSUdJRDJWMDc0VkJPV1U4QUlROS4u&route=shorturl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative px-8 py-4 bg-[#F2A93B] text-[#0B1F3B] font-bold rounded-full hover:bg-[#f7c46d] hover:shadow-xl hover:shadow-[#F2A93B]/30 hover:-translate-y-1 transition-all duration-200 text-center min-h-[52px] flex items-center justify-center gap-2"
+                  >
+                    <span className="w-2 h-2 bg-[#0B1F3B] rounded-full animate-ping absolute left-4 opacity-75" />
+                    <HiCheckCircle size={18} />
+                    Vote for Kamuskay
+                  </a>
                 </div>
               </AnimateIn>
             </div>
