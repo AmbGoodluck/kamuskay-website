@@ -29,6 +29,7 @@ export default function FeaturedActivities() {
   const [activities, setActivities] = useState<Activity[]>(staticActivities);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "activities"), orderBy("createdAt", "desc"));
     return onSnapshot(q, (snap) => {
       if (!snap.empty) {

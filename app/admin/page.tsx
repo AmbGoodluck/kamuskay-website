@@ -116,6 +116,7 @@ export default function AdminPage() {
   const [tab, setTab] = useState<Tab>("activities");
 
   useEffect(() => {
+    if (!auth) { setAuthLoading(false); return; }
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
       setAuthLoading(false);
@@ -142,6 +143,7 @@ export default function AdminPage() {
         <p className="text-[#0B1F3B] font-bold text-lg">Access denied.</p>
         <p className="text-[#666] text-sm">{email} is not an authorized admin.</p>
         <button
+          type="button"
           onClick={() => signOut(auth)}
           className="px-4 py-2 bg-[#0B1F3B] text-white rounded-xl text-sm font-semibold"
         >
@@ -173,6 +175,7 @@ export default function AdminPage() {
           </div>
         </div>
         <button
+          type="button"
           onClick={() => signOut(auth)}
           className="text-white/70 hover:text-white text-xs font-semibold border border-white/20 px-3 py-1.5 rounded-lg hover:border-white/50 transition-colors"
         >
@@ -185,6 +188,7 @@ export default function AdminPage() {
         <div className="flex gap-1 min-w-max">
           {tabs.map((t) => (
             <button
+              type="button"
               key={t.key}
               onClick={() => setTab(t.key)}
               className={`px-4 py-3.5 text-sm font-semibold border-b-2 transition-colors whitespace-nowrap ${
@@ -241,6 +245,7 @@ function LoginScreen() {
           <p className="text-red-500 text-xs mb-4 bg-red-50 px-3 py-2 rounded-xl">{error}</p>
         )}
         <button
+          type="button"
           onClick={handleGoogle}
           disabled={loading}
           className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#e0e0e0] rounded-xl text-sm font-semibold text-[#333] hover:bg-[#F5F5F7] transition-colors disabled:opacity-50"
@@ -288,18 +293,19 @@ function CardHeader({ title }: { title: string }) {
 function ProgressBar({ value }: { value: number }) {
   if (value === 0 || value === 100) return null;
   return (
-    <div className="mt-2 h-1.5 bg-[#e8e8e8] rounded-full overflow-hidden">
-      <div
-        className="h-full bg-[#30A38A] transition-all"
-        style={{ width: `${value}%` }}
-      />
-    </div>
+    <progress
+      value={value}
+      max={100}
+      aria-label="Upload progress"
+      className="w-full h-1.5 mt-2 rounded-full [&::-webkit-progress-bar]:rounded-full [&::-webkit-progress-bar]:bg-[#e8e8e8] [&::-webkit-progress-value]:rounded-full [&::-webkit-progress-value]:bg-[#30A38A]"
+    />
   );
 }
 
 function DeleteBtn({ onClick }: { onClick: () => void }) {
   return (
     <button
+      type="button"
       onClick={onClick}
       className="text-xs text-red-500 hover:text-red-700 font-semibold px-2 py-1 rounded-lg hover:bg-red-50 transition-colors shrink-0"
     >
@@ -387,8 +393,9 @@ function ActivitiesTab() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs text-[#888] font-semibold uppercase tracking-widest block mb-1.5">Image</label>
+              <label htmlFor="activity-image" className="text-xs text-[#888] font-semibold uppercase tracking-widest block mb-1.5">Image</label>
               <input
+                id="activity-image"
                 ref={fileRef} type="file" accept="image/*"
                 onChange={(e) => setFile(e.target.files?.[0] ?? null)}
                 required
@@ -396,8 +403,10 @@ function ActivitiesTab() {
               />
             </div>
             <div>
-              <label className="text-xs text-[#888] font-semibold uppercase tracking-widest block mb-1.5">Image Focus</label>
+              <label htmlFor="activity-focus" className="text-xs text-[#888] font-semibold uppercase tracking-widest block mb-1.5">Image Focus</label>
               <select
+                id="activity-focus"
+                title="Image focus position"
                 value={focus} onChange={(e) => setFocus(e.target.value)}
                 className="border border-[#e0e0e0] rounded-xl px-3 py-2.5 text-sm text-[#333] focus:outline-none focus:border-[#0B1F3B] w-full"
               >
@@ -489,7 +498,9 @@ function GalleryTab() {
             placeholder="Caption (optional)"
             className="w-full border border-[#e0e0e0] rounded-xl px-4 py-2.5 text-sm text-[#333] focus:outline-none focus:border-[#0B1F3B]"
           />
+          <label htmlFor="gallery-image" className="sr-only">Gallery photo</label>
           <input
+            id="gallery-image"
             ref={fileRef} type="file" accept="image/*"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
             required
@@ -514,6 +525,7 @@ function GalleryTab() {
               <img src={item.imageUrl} alt={item.caption || "Gallery"} className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <button
+                  type="button"
                   onClick={() => handleDelete(item)}
                   className="bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg"
                 >
@@ -581,7 +593,9 @@ function CertificatesTab() {
             placeholder="Description (e.g. MLK Leadership Certificate 2026)"
             className="w-full border border-[#e0e0e0] rounded-xl px-4 py-2.5 text-sm text-[#333] focus:outline-none focus:border-[#0B1F3B]"
           />
+          <label htmlFor="cert-image" className="sr-only">Certificate image</label>
           <input
+            id="cert-image"
             ref={fileRef} type="file" accept="image/*"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
             required

@@ -30,6 +30,7 @@ export default function GalleryCarousel() {
   const [items, setItems] = useState<GalleryItem[]>(staticImages);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "gallery"), orderBy("createdAt", "desc"));
     return onSnapshot(q, (snap) => {
       if (!snap.empty) {

@@ -54,6 +54,7 @@ export default function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>(staticProjects);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
     return onSnapshot(q, (snap) => {
       if (!snap.empty) {

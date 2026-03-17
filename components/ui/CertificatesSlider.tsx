@@ -36,6 +36,7 @@ export default function CertificatesSlider() {
   const [certificates, setCertificates] = useState<Certificate[]>(staticCerts);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "certificates"), orderBy("createdAt", "desc"));
     return onSnapshot(q, (snap) => {
       if (!snap.empty) {

@@ -12,11 +12,21 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+// Only initialize Firebase in the browser with a valid API key.
+// During static export / build time this stays null — preventing build crashes.
+const app =
+  typeof window !== "undefined" && firebaseConfig.apiKey
+    ? getApps().length === 0
+      ? initializeApp(firebaseConfig)
+      : getApps()[0]
+    : null;
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const auth = app ? getAuth(app) : (null as any);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const db = app ? getFirestore(app) : (null as any);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const storage = app ? getStorage(app) : (null as any);
 export const googleProvider = new GoogleAuthProvider();
 
 export const ADMIN_EMAIL = "Kamuskaykamara0@gmail.com";

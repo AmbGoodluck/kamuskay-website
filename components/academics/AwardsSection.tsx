@@ -27,6 +27,7 @@ export default function AwardsSection() {
   const [awards, setAwards] = useState<Award[]>(staticAwards);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "awards"), orderBy("createdAt", "desc"));
     return onSnapshot(q, (snap) => {
       if (!snap.empty) {
