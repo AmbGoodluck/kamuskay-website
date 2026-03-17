@@ -987,11 +987,13 @@ export default function Kamuskay4SGAPage() {
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="mailto:kamarak@berea.edu?subject=I pledge to vote for Kamuskay %26 Makayla"
+                href="https://forms.office.com/pages/responsepage.aspx?id=X429WeES0k2gUEYIdA9kdwTVPC7AkstNm7UqsFa2SOlURFRPN0JXSUdJRDJWMDc0VkJPV1U4QUlROS4u&route=shorturl"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-10 py-4 bg-[#F2A93B] text-[#0B1F3B] font-black rounded-full hover:bg-[#f7c46d] hover:shadow-2xl hover:shadow-[#F2A93B]/30 hover:-translate-y-1 transition-all duration-200 text-base flex items-center justify-center gap-2 min-h-[56px]"
               >
-                <HiMail size={20} />
-                Pledge to Vote
+                <HiCheckCircle size={20} />
+                Vote for Kamuskay
               </a>
               <button
                 type="button"
@@ -1020,6 +1022,44 @@ export default function Kamuskay4SGAPage() {
               #Kamuskay4SGA · Kamuskay Kamara &amp; Makayla Hughes · Berea
               College SGA 2026
             </p>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          7. STUDENT SUGGESTION FORM
+      ══════════════════════════════════════════════════════════════════ */}
+      <section
+        className="py-12 md:py-16 bg-[#F5F5F7]"
+        aria-label="Student suggestion form"
+      >
+        <div className="max-w-lg mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimateIn>
+            <div className="bg-white rounded-2xl shadow-sm border border-[#e8e8e8] p-8 text-center hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 bg-[#0B1F3B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-6 h-6 text-[#0B1F3B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-black text-[#0B1F3B] font-poppins mb-2">
+                Student Suggestion Form
+              </h3>
+              <p className="text-[#666] text-sm leading-relaxed mb-6">
+                Have an idea, concern, or suggestion? Let Kamuskay &amp; Makayla
+                know what matters most to you. Your voice shapes their platform.
+              </p>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfz01Tk22F6_w5n0HE9Ua777Vo_hzvV4psnxcMLPXjBLZzH-A/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-7 py-3 bg-[#0B1F3B] text-white font-bold rounded-full hover:bg-[#132d57] hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 text-sm"
+              >
+                Submit a Suggestion
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
           </AnimateIn>
         </div>
       </section>
