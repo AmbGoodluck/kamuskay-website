@@ -331,19 +331,22 @@ function ActivitiesTab() {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "activities"), orderBy("createdAt", "desc"));
-    return onSnapshot(q, (snap) => {
-      setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Activity)));
-    });
+    return onSnapshot(q,
+      (snap) => setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Activity))),
+      (err) => setError(err.message)
+    );
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file || !title || !caption || !tag) return;
-    setSaving(true);
+    setError(""); setSaving(true);
     try {
       const { url, storagePath } = await uploadImage(file, "activities", setProgress);
       await addDoc(collection(db, "activities"), {
@@ -354,14 +357,20 @@ function ActivitiesTab() {
       setTitle(""); setCaption(""); setTag(""); setFocus("center");
       setFile(null); setProgress(0);
       if (fileRef.current) fileRef.current.value = "";
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Upload failed. Check Firebase rules.");
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (item: Activity) => {
-    await removeFromStorage(item.storagePath);
-    await deleteDoc(doc(db, "activities", item.id));
+    try {
+      await removeFromStorage(item.storagePath);
+      await deleteDoc(doc(db, "activities", item.id));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Delete failed.");
+    }
   };
 
   return (
@@ -417,6 +426,7 @@ function ActivitiesTab() {
             </div>
           </div>
           <ProgressBar value={progress} />
+          {error && <p className="text-red-500 text-xs bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
           <button
             type="submit" disabled={saving}
             className="px-6 py-2.5 bg-[#0B1F3B] text-white rounded-xl text-sm font-semibold hover:bg-[#132d57] disabled:opacity-50 transition-colors"
@@ -455,19 +465,22 @@ function GalleryTab() {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "gallery"), orderBy("createdAt", "desc"));
-    return onSnapshot(q, (snap) => {
-      setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as GalleryItem)));
-    });
+    return onSnapshot(q,
+      (snap) => setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as GalleryItem))),
+      (err) => setError(err.message)
+    );
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return;
-    setSaving(true);
+    setError(""); setSaving(true);
     try {
       const { url, storagePath } = await uploadImage(file, "gallery", setProgress);
       await addDoc(collection(db, "gallery"), {
@@ -476,14 +489,20 @@ function GalleryTab() {
       });
       setCaption(""); setFile(null); setProgress(0);
       if (fileRef.current) fileRef.current.value = "";
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Upload failed. Check Firebase rules.");
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (item: GalleryItem) => {
-    await removeFromStorage(item.storagePath);
-    await deleteDoc(doc(db, "gallery", item.id));
+    try {
+      await removeFromStorage(item.storagePath);
+      await deleteDoc(doc(db, "gallery", item.id));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Delete failed.");
+    }
   };
 
   return (
@@ -507,6 +526,7 @@ function GalleryTab() {
             className="text-sm text-[#555] file:mr-3 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:bg-[#0B1F3B] file:text-white file:text-xs file:font-semibold hover:file:bg-[#132d57] file:cursor-pointer"
           />
           <ProgressBar value={progress} />
+          {error && <p className="text-red-500 text-xs bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
           <button
             type="submit" disabled={saving}
             className="px-6 py-2.5 bg-[#0B1F3B] text-white rounded-xl text-sm font-semibold hover:bg-[#132d57] disabled:opacity-50 transition-colors"
@@ -548,19 +568,22 @@ function CertificatesTab() {
   const [file, setFile] = useState<File | null>(null);
   const [progress, setProgress] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "certificates"), orderBy("createdAt", "desc"));
-    return onSnapshot(q, (snap) => {
-      setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Certificate)));
-    });
+    return onSnapshot(q,
+      (snap) => setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Certificate))),
+      (err) => setError(err.message)
+    );
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return;
-    setSaving(true);
+    setError(""); setSaving(true);
     try {
       const { url, storagePath } = await uploadImage(file, "certificates", setProgress);
       await addDoc(collection(db, "certificates"), {
@@ -571,14 +594,20 @@ function CertificatesTab() {
       });
       setAlt(""); setFile(null); setProgress(0);
       if (fileRef.current) fileRef.current.value = "";
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Upload failed. Check Firebase rules.");
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (item: Certificate) => {
-    await removeFromStorage(item.storagePath);
-    await deleteDoc(doc(db, "certificates", item.id));
+    try {
+      await removeFromStorage(item.storagePath);
+      await deleteDoc(doc(db, "certificates", item.id));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Delete failed.");
+    }
   };
 
   return (
@@ -602,6 +631,7 @@ function CertificatesTab() {
             className="text-sm text-[#555] file:mr-3 file:py-1.5 file:px-4 file:rounded-lg file:border-0 file:bg-[#0B1F3B] file:text-white file:text-xs file:font-semibold hover:file:bg-[#132d57] file:cursor-pointer"
           />
           <ProgressBar value={progress} />
+          {error && <p className="text-red-500 text-xs bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
           <button
             type="submit" disabled={saving}
             className="px-6 py-2.5 bg-[#0B1F3B] text-white rounded-xl text-sm font-semibold hover:bg-[#132d57] disabled:opacity-50 transition-colors"
@@ -636,31 +666,40 @@ function AwardsTab() {
   const [year, setYear] = useState("");
   const [emoji, setEmoji] = useState("🏆");
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "awards"), orderBy("createdAt", "desc"));
-    return onSnapshot(q, (snap) => {
-      setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Award)));
-    });
+    return onSnapshot(q,
+      (snap) => setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Award))),
+      (err) => setError(err.message)
+    );
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title || !year) return;
-    setSaving(true);
+    setError(""); setSaving(true);
     try {
       await addDoc(collection(db, "awards"), {
         title, year, emoji,
         createdAt: serverTimestamp(),
       });
       setTitle(""); setYear(""); setEmoji("🏆");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Save failed. Check Firebase rules.");
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    await deleteDoc(doc(db, "awards", id));
+    try {
+      await deleteDoc(doc(db, "awards", id));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Delete failed.");
+    }
   };
 
   return (
@@ -690,6 +729,7 @@ function AwardsTab() {
             required
             className="w-full border border-[#e0e0e0] rounded-xl px-4 py-2.5 text-sm text-[#333] focus:outline-none focus:border-[#0B1F3B]"
           />
+          {error && <p className="text-red-500 text-xs bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
           <button
             type="submit" disabled={saving}
             className="px-6 py-2.5 bg-[#0B1F3B] text-white rounded-xl text-sm font-semibold hover:bg-[#132d57] disabled:opacity-50 transition-colors"
@@ -728,12 +768,15 @@ function ProjectsTab() {
   const [bullets, setBullets] = useState(["", ""]);
   const [whyItMatters, setWhyItMatters] = useState("");
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
-    return onSnapshot(q, (snap) => {
-      setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Project)));
-    });
+    return onSnapshot(q,
+      (snap) => setItems(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Project))),
+      (err) => setError(err.message)
+    );
   }, []);
 
   const updateBullet = (i: number, val: string) => {
@@ -746,7 +789,7 @@ function ProjectsTab() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!role || !name) return;
-    setSaving(true);
+    setError(""); setSaving(true);
     try {
       await addDoc(collection(db, "projects"), {
         role, name,
@@ -755,13 +798,19 @@ function ProjectsTab() {
         createdAt: serverTimestamp(),
       });
       setRole(""); setName(""); setBullets(["", ""]); setWhyItMatters("");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Save failed. Check Firebase rules.");
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (id: string) => {
-    await deleteDoc(doc(db, "projects", id));
+    try {
+      await deleteDoc(doc(db, "projects", id));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Delete failed.");
+    }
   };
 
   return (
@@ -811,6 +860,7 @@ function ProjectsTab() {
             rows={2}
             className="w-full border border-[#e0e0e0] rounded-xl px-4 py-2.5 text-sm text-[#333] focus:outline-none focus:border-[#0B1F3B] resize-none"
           />
+          {error && <p className="text-red-500 text-xs bg-red-50 px-3 py-2 rounded-xl">{error}</p>}
           <button
             type="submit" disabled={saving}
             className="px-6 py-2.5 bg-[#0B1F3B] text-white rounded-xl text-sm font-semibold hover:bg-[#132d57] disabled:opacity-50 transition-colors"
