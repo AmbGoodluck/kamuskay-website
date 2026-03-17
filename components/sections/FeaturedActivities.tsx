@@ -1,47 +1,44 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AnimateIn from "@/components/ui/AnimateIn";
 import { HiArrowRight } from "react-icons/hi";
+import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
-const activities = [
-  {
-    title: "African & African American Dialogue",
-    caption: "Organized the first-ever cross-cultural student dialogue at Berea, bridging communities and sparking ongoing conversations.",
-    image: "/images/asa-group.jpeg",
-    tag: "Community",
-    focus: "center",
-  },
-  {
-    title: "First Year Summit Facilitator",
-    caption: "Guided incoming students through Berea's unique culture and Work-Learning-Service program, helping them find their footing.",
-    image: "/images/wls-conflict-training.jpeg",
-    tag: "Mentorship",
-    focus: "center",
-  },
-  {
-    title: "Track & Field Athlete",
-    caption: "Competing on the Berea College track team while balancing academics and leadership roles, proving excellence is achievable.",
-    image: "/images/track-running-action.jpeg",
-    tag: "Athletics",
-    focus: "top",
-  },
-  {
-    title: "Afro-Latin Ensemble",
-    caption: "Performed at chapel services and community events, bringing vibrant cultural richness to campus life.",
-    image: "/images/african-cultural-attire.jpeg",
-    tag: "Arts & Culture",
-    focus: "top",
-  },
-  {
-    title: "Convocation & Campus Speaking",
-    caption: "Delivered speeches representing the student body, sharing a vision of service, community, and belonging.",
-    image: "/images/speaking-podium.jpeg",
-    tag: "Leadership",
-    focus: "center",
-  },
+type Activity = {
+  id: string;
+  title: string;
+  caption: string;
+  imageUrl: string;
+  tag: string;
+  focus: string;
+};
+
+const staticActivities: Activity[] = [
+  { id: "s1", title: "African & African American Dialogue", caption: "Organized the first-ever cross-cultural student dialogue at Berea, bridging communities and sparking ongoing conversations.", imageUrl: "/images/asa-group.jpeg", tag: "Community", focus: "center" },
+  { id: "s2", title: "First Year Summit Facilitator", caption: "Guided incoming students through Berea's unique culture and Work-Learning-Service program, helping them find their footing.", imageUrl: "/images/wls-conflict-training.jpeg", tag: "Mentorship", focus: "center" },
+  { id: "s3", title: "Track & Field Athlete", caption: "Competing on the Berea College track team while balancing academics and leadership roles, proving excellence is achievable.", imageUrl: "/images/track-running-action.jpeg", tag: "Athletics", focus: "top" },
+  { id: "s4", title: "Afro-Latin Ensemble", caption: "Performed at chapel services and community events, bringing vibrant cultural richness to campus life.", imageUrl: "/images/african-cultural-attire.jpeg", tag: "Arts & Culture", focus: "top" },
+  { id: "s5", title: "Convocation & Campus Speaking", caption: "Delivered speeches representing the student body, sharing a vision of service, community, and belonging.", imageUrl: "/images/speaking-podium.jpeg", tag: "Leadership", focus: "center" },
 ];
 
 export default function FeaturedActivities() {
+  const [activities, setActivities] = useState<Activity[]>(staticActivities);
+
+  useEffect(() => {
+    const q = query(collection(db, "activities"), orderBy("createdAt", "desc"));
+    return onSnapshot(q, (snap) => {
+      if (!snap.empty) {
+        setActivities(snap.docs.map((d) => ({ id: d.id, ...d.data() } as Activity)));
+      } else {
+        setActivities(staticActivities);
+      }
+    });
+  }, []);
+
   return (
     <section className="py-16 md:py-24 bg-[#F5F5F7] overflow-hidden" aria-label="Featured activities">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,21 +61,18 @@ export default function FeaturedActivities() {
           </div>
         </AnimateIn>
 
-        {/* Horizontal scroll on mobile, grid on desktop */}
         <div className="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-x-auto pb-4 md:pb-0 snap-x snap-mandatory md:snap-none">
           {activities.map((act, i) => (
-            <AnimateIn key={act.title} delay={i * 0.08}>
+            <AnimateIn key={act.id} delay={i * 0.08}>
               <div className="group min-w-[260px] md:min-w-0 snap-start rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full flex flex-col bg-[#0B1F3B]">
-                {/* Real photo */}
                 <div className="relative h-44 shrink-0 overflow-hidden">
                   <Image
-                    src={act.image}
+                    src={act.imageUrl}
                     alt={act.title}
                     fill
                     className={`object-cover object-${act.focus} group-hover:scale-105 transition-transform duration-500`}
                     sizes="(max-width: 768px) 280px, 20vw"
                   />
-                  {/* Subtle dark bottom gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3B]/60 to-transparent" />
                   <span className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 bg-black/40 backdrop-blur-sm text-white rounded-full">
                     {act.tag}
