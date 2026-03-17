@@ -38,7 +38,7 @@ export default function GalleryCarousel() {
       } else {
         setItems(staticImages);
       }
-    });
+    }, (err) => console.error("[Firestore/gallery]", err));
   }, []);
 
   useEffect(() => {

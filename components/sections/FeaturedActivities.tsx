@@ -37,7 +37,7 @@ export default function FeaturedActivities() {
       } else {
         setActivities(staticActivities);
       }
-    });
+    }, (err) => console.error("[Firestore/activities]", err));
   }, []);
 
   return (

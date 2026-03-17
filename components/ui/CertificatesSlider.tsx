@@ -44,7 +44,7 @@ export default function CertificatesSlider() {
       } else {
         setCertificates(staticCerts);
       }
-    });
+    }, (err) => console.error("[Firestore/certificates]", err));
   }, []);
 
   const total = certificates.length;

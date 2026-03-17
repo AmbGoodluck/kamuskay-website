@@ -62,7 +62,7 @@ export default function ProjectsSection() {
       } else {
         setProjects(staticProjects);
       }
-    });
+    }, (err) => console.error("[Firestore/projects]", err));
   }, []);
 
   return (

@@ -35,7 +35,7 @@ export default function AwardsSection() {
       } else {
         setAwards(staticAwards);
       }
-    });
+    }, (err) => console.error("[Firestore/awards]", err));
   }, []);
 
   return (
