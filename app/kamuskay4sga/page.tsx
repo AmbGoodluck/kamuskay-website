@@ -584,14 +584,15 @@ export default function Kamuskay4SGAPage() {
             {/* ── Right: Ticket visual ── */}
             <AnimateIn direction="right" delay={0.2}>
               <div className="relative w-full mx-auto lg:mx-0 lg:ml-auto">
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-gradient-to-br from-[#132d57] to-[#0B1F3B] shadow-2xl border border-white/10">
+                <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#132d57] to-[#0B1F3B] shadow-2xl border border-white/10">
                   <video
                     src="/images/campaign/campaign-video.png.mp4"
                     autoPlay
-                    muted
                     loop
                     playsInline
-                    className="w-full h-full object-cover object-top"
+                    controls
+                    className="w-full h-auto block"
+                    style={{ aspectRatio: "9/16" }}
                   />
                 </div>
                 {/* Floating accent badge */}
