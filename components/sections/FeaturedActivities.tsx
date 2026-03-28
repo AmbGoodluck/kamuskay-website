@@ -90,7 +90,7 @@ export default function FeaturedActivities() {
                     {act.title}
                   </h3>
                   <p className="text-white/60 text-xs leading-relaxed flex-1">
-                    {act.caption}
+                    {act.caption.length > 120 ? act.caption.slice(0, 120) + '…' : act.caption}
                   </p>
                   {act.details && (
                     <>
