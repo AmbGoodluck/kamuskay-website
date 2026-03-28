@@ -1,0 +1,7 @@
+# Cloudflare Pages Redirects
+# Format: https://developers.cloudflare.com/pages/platform/redirects/
+
+# Example: Redirect all traffic to HTTPS
+# http://* https://:splat 301!
+
+# Add your custom redirects below

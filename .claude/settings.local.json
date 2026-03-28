@@ -6,7 +6,12 @@
       "Bash(npm install:*)",
       "Bash(npx next:*)",
       "Bash(pkill -f 'next dev')",
-      "Bash(find /c/Users/jalloho/Desktop/Kamuskay/kamuskay-website/kamuskay-website -not -path */node_modules/* -not -path */.next/* -not -path */.git/* -not -path */.claude/*)"
+      "Bash(find /c/Users/jalloho/Desktop/Kamuskay/kamuskay-website/kamuskay-website -not -path */node_modules/* -not -path */.next/* -not -path */.git/* -not -path */.claude/*)",
+      "Bash(npx tsc:*)",
+      "Bash(git fetch:*)",
+      "WebFetch(domain:kamuskaykamara.com)",
+      "Bash(gh run:*)",
+      "Bash(find c:/Users/jalloho/Desktop/Kamuskay/kamuskay-website/kamuskay-website -maxdepth 1 -name .env* -o -name *firebase* -o -name *config*)"
     ]
   }
 }

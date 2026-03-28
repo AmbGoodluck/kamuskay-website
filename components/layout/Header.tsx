@@ -63,23 +63,14 @@ export default function Header() {
                 href={link.href}
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
                   pathname === link.href
-                    ? "text-[#F2A93B]"
+                    ? "text-[var(--color-gold)]"
                     : "text-white/80 hover:text-white"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/kamuskay4sga"
-              className={`ml-2 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 ${
-                pathname === "/kamuskay4sga"
-                  ? "bg-[#d4891a] text-white"
-                  : "bg-[#F2A93B] text-[#0B1F3B] hover:bg-[#f7c46d] hover:shadow-md hover:-translate-y-0.5"
-              }`}
-            >
-              Kamuskay4SGA
-            </Link>
+// ...removed Kamuskay4SGA nav link...
           </nav>
 
           {/* Mobile menu button */}
@@ -111,19 +102,14 @@ export default function Header() {
                   href={link.href}
                   className={`py-4 text-2xl font-bold border-b border-white/10 transition-colors duration-200 ${
                     pathname === link.href
-                      ? "text-[#F2A93B]"
-                      : "text-white hover:text-[#F2A93B]"
+                      ? "text-[var(--color-gold)]"
+                      : "text-white hover:text-[var(--color-gold)]"
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Link
-                href="/kamuskay4sga"
-                className="mt-6 py-4 px-6 bg-[#F2A93B] text-[#0B1F3B] text-2xl font-bold rounded-2xl text-center hover:bg-[#f7c46d] transition-colors"
-              >
-                Kamuskay4SGA
-              </Link>
+              {/* Kamuskay4SGA mobile nav link removed */}
             </nav>
           </motion.div>
         )}
