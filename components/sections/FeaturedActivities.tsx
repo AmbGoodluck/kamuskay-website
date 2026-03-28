@@ -71,7 +71,7 @@ export default function FeaturedActivities() {
         <div className="flex md:grid md:grid-cols-3 lg:grid-cols-5 gap-4 overflow-x-auto pb-4 md:pb-0 snap-x snap-mandatory md:snap-none">
           {activities.map((act, i) => (
             <AnimateIn key={act.id} delay={i * 0.08}>
-              <div className="group min-w-[260px] md:min-w-0 snap-start rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full flex flex-col bg-[#0B1F3B]">
+              <div className="group min-w-[260px] md:min-w-0 snap-start rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full flex flex-col justify-between bg-[#0B1F3B]">
                 <div className="relative h-44 shrink-0 overflow-hidden">
                   <Image
                     src={act.imageUrl}
@@ -93,7 +93,7 @@ export default function FeaturedActivities() {
                     {act.caption.length > 120 ? act.caption.slice(0, 120) + '…' : act.caption}
                   </p>
                   {act.details && (
-                    <div>
+                    <>
                       <div
                         id={`activity-details-${i}`}
                         className={`transition-all duration-300 overflow-hidden ${openIndex === i ? "max-h-40 mt-2 opacity-100" : "max-h-0 opacity-0"}`}
@@ -103,22 +103,21 @@ export default function FeaturedActivities() {
                           {act.details}
                         </div>
                       </div>
-                    </div>
+                      <div className="flex justify-center pt-2">
+                        <button
+                          className="px-4 py-2 bg-[var(--color-gold)] text-[#0B1F3B] text-xs font-bold rounded-full shadow hover:bg-[var(--color-gold-dark)] focus:outline-none transition-colors"
+                          style={{ minWidth: 100 }}
+                          onClick={() => handleToggle(i)}
+                          aria-expanded={openIndex === i}
+                          aria-controls={`activity-details-${i}`}
+                        >
+                          {openIndex === i ? "Hide details" : "Read more"}
+                        </button>
+                      </div>
+                    </>
                   )}
                 </div>
-                {act.details && (
-                  <div className="flex justify-center pb-4 pt-2">
-                    <button
-                      className="px-4 py-2 bg-[var(--color-gold)] text-[#0B1F3B] text-xs font-bold rounded-full shadow hover:bg-[var(--color-gold-dark)] focus:outline-none transition-colors"
-                      style={{ minWidth: 100 }}
-                      onClick={() => handleToggle(i)}
-                      aria-expanded={openIndex === i}
-                      aria-controls={`activity-details-${i}`}
-                    >
-                      {openIndex === i ? "Hide details" : "Read more"}
-                    </button>
-                  </div>
-                )}
+
               </div>
             </AnimateIn>
           ))}
