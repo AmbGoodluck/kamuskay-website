@@ -70,7 +70,7 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-// ...removed Kamuskay4SGA nav link...
+
           </nav>
 
           {/* Mobile menu button */}

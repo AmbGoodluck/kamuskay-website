@@ -15,18 +15,20 @@ type Activity = {
   imageUrl: string;
   tag: string;
   focus: string;
+  details?: string;
 };
 
 const staticActivities: Activity[] = [
-  { id: "s1", title: "African & African American Dialogue", caption: "Organized the first-ever cross-cultural student dialogue at Berea, bridging communities and sparking ongoing conversations.", imageUrl: "/images/asa-group.jpeg", tag: "Community", focus: "center" },
-  { id: "s2", title: "First Year Summit Facilitator", caption: "Guided incoming students through Berea's unique culture and Work-Learning-Service program, helping them find their footing.", imageUrl: "/images/wls-conflict-training.jpeg", tag: "Mentorship", focus: "center" },
-  { id: "s3", title: "Track & Field Athlete", caption: "Competing on the Berea College track team while balancing academics and leadership roles, proving excellence is achievable.", imageUrl: "/images/track-running-action.jpeg", tag: "Athletics", focus: "top" },
-  { id: "s4", title: "Afro-Latin Ensemble", caption: "Performed at chapel services and community events, bringing vibrant cultural richness to campus life.", imageUrl: "/images/african-cultural-attire.jpeg", tag: "Arts & Culture", focus: "top" },
-  { id: "s5", title: "Convocation & Campus Speaking", caption: "Delivered speeches representing the student body, sharing a vision of service, community, and belonging.", imageUrl: "/images/speaking-podium.jpeg", tag: "Leadership", focus: "center" },
+  { id: "s1", title: "African & African American Dialogue", caption: "Organized the first-ever cross-cultural student dialogue at Berea, bridging communities and sparking ongoing conversations.", details: "This event brought together students from diverse backgrounds to foster understanding and build lasting relationships.", imageUrl: "/images/asa-group.jpeg", tag: "Community", focus: "center" },
+  { id: "s2", title: "First Year Summit Facilitator", caption: "Guided incoming students through Berea's unique culture and Work-Learning-Service program, helping them find their footing.", details: "As a facilitator, I mentored new students, helping them adapt to college life and succeed academically.", imageUrl: "/images/wls-conflict-training.jpeg", tag: "Mentorship", focus: "center" },
+  { id: "s3", title: "Track & Field Athlete", caption: "Competing on the Berea College track team while balancing academics and leadership roles, proving excellence is achievable.", details: "My experience as a student-athlete taught me discipline, teamwork, and perseverance.", imageUrl: "/images/track-running-action.jpeg", tag: "Athletics", focus: "top" },
+  { id: "s4", title: "Afro-Latin Ensemble", caption: "Performed at chapel services and community events, bringing vibrant cultural richness to campus life.", details: "Performing with the ensemble allowed me to share my culture and connect with the community.", imageUrl: "/images/african-cultural-attire.jpeg", tag: "Arts & Culture", focus: "top" },
+  { id: "s5", title: "Convocation & Campus Speaking", caption: "Delivered speeches representing the student body, sharing a vision of service, community, and belonging.", details: "Speaking at campus events gave me a platform to inspire and advocate for my peers.", imageUrl: "/images/speaking-podium.jpeg", tag: "Leadership", focus: "center" },
 ];
 
 export default function FeaturedActivities() {
   const [activities, setActivities] = useState<Activity[]>(staticActivities);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (!db) return;
@@ -39,6 +41,10 @@ export default function FeaturedActivities() {
       }
     }, (err) => console.error("[Firestore/activities]", err));
   }, []);
+
+  const handleToggle = (idx: number) => {
+    setOpenIndex(openIndex === idx ? null : idx);
+  };
 
   return (
     <section className="py-16 md:py-24 bg-[#F5F5F7] overflow-hidden" aria-label="Featured activities">
@@ -83,7 +89,30 @@ export default function FeaturedActivities() {
                   <h3 className="text-white font-bold text-sm leading-snug font-poppins">
                     {act.title}
                   </h3>
-                  <p className="text-white/60 text-xs leading-relaxed flex-1">{act.caption}</p>
+                  <p className="text-white/60 text-xs leading-relaxed flex-1">
+                    {act.caption}
+                  </p>
+                  {act.details && (
+                    <>
+                      <button
+                        className="mt-2 text-xs text-[var(--color-gold)] font-semibold underline hover:text-[var(--color-gold-dark)] focus:outline-none"
+                        onClick={() => handleToggle(i)}
+                        aria-expanded={openIndex === i}
+                        aria-controls={`activity-details-${i}`}
+                      >
+                        {openIndex === i ? "Hide details" : "Read more"}
+                      </button>
+                      <div
+                        id={`activity-details-${i}`}
+                        className={`transition-all duration-300 overflow-hidden ${openIndex === i ? "max-h-40 mt-2 opacity-100" : "max-h-0 opacity-0"}`}
+                        aria-hidden={openIndex !== i}
+                      >
+                        <div className="text-white/90 text-xs bg-[#132d57] rounded-lg p-3 shadow-inner">
+                          {act.details}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </AnimateIn>
