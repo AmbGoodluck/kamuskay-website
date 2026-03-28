@@ -93,15 +93,18 @@ export default function FeaturedActivities() {
                     {act.caption.length > 120 ? act.caption.slice(0, 120) + '…' : act.caption}
                   </p>
                   {act.details && (
-                    <>
-                      <button
-                        className="mt-2 text-xs text-[var(--color-gold)] font-semibold underline hover:text-[var(--color-gold-dark)] focus:outline-none"
-                        onClick={() => handleToggle(i)}
-                        aria-expanded={openIndex === i}
-                        aria-controls={`activity-details-${i}`}
-                      >
-                        {openIndex === i ? "Hide details" : "Read more"}
-                      </button>
+                    <div className="flex flex-col flex-1 justify-end">
+                      <div className="flex justify-center mt-auto">
+                        <button
+                          className="mb-0 mt-4 px-4 py-2 bg-[var(--color-gold)] text-[#0B1F3B] text-xs font-bold rounded-full shadow hover:bg-[var(--color-gold-dark)] focus:outline-none transition-colors"
+                          style={{ minWidth: 100 }}
+                          onClick={() => handleToggle(i)}
+                          aria-expanded={openIndex === i}
+                          aria-controls={`activity-details-${i}`}
+                        >
+                          {openIndex === i ? "Hide details" : "Read more"}
+                        </button>
+                      </div>
                       <div
                         id={`activity-details-${i}`}
                         className={`transition-all duration-300 overflow-hidden ${openIndex === i ? "max-h-40 mt-2 opacity-100" : "max-h-0 opacity-0"}`}
@@ -111,7 +114,7 @@ export default function FeaturedActivities() {
                           {act.details}
                         </div>
                       </div>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>
